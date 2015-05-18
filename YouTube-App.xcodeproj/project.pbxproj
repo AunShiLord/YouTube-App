@@ -14,6 +14,8 @@
 		842551901B09874F0028B5B0 /* YouTube_AppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8425518F1B09874F0028B5B0 /* YouTube_AppTests.m */; };
 		8425519D1B098AAF0028B5B0 /* PopularVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8425519B1B098AAF0028B5B0 /* PopularVideoViewController.m */; };
 		8425519E1B098AAF0028B5B0 /* PopularVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8425519C1B098AAF0028B5B0 /* PopularVideoViewController.xib */; };
+		842551A41B099F450028B5B0 /* CustomVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 842551A21B099F450028B5B0 /* CustomVideoCell.m */; };
+		842551A51B099F450028B5B0 /* CustomVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842551A31B099F450028B5B0 /* CustomVideoCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,9 @@
 		8425519A1B098AAF0028B5B0 /* PopularVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularVideoViewController.h; sourceTree = "<group>"; };
 		8425519B1B098AAF0028B5B0 /* PopularVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularVideoViewController.m; sourceTree = "<group>"; };
 		8425519C1B098AAF0028B5B0 /* PopularVideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopularVideoViewController.xib; sourceTree = "<group>"; };
+		842551A11B099F450028B5B0 /* CustomVideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomVideoCell.h; sourceTree = "<group>"; };
+		842551A21B099F450028B5B0 /* CustomVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomVideoCell.m; sourceTree = "<group>"; };
+		842551A31B099F450028B5B0 /* CustomVideoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomVideoCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,11 +125,30 @@
 		842551991B098A580028B5B0 /* User Interface */ = {
 			isa = PBXGroup;
 			children = (
+				842551A01B099F040028B5B0 /* CustomVideoCell */,
+				8425519F1B099EE50028B5B0 /* PopularVideoViewController */,
+			);
+			name = "User Interface";
+			sourceTree = "<group>";
+		};
+		8425519F1B099EE50028B5B0 /* PopularVideoViewController */ = {
+			isa = PBXGroup;
+			children = (
 				8425519A1B098AAF0028B5B0 /* PopularVideoViewController.h */,
 				8425519B1B098AAF0028B5B0 /* PopularVideoViewController.m */,
 				8425519C1B098AAF0028B5B0 /* PopularVideoViewController.xib */,
 			);
-			name = "User Interface";
+			name = PopularVideoViewController;
+			sourceTree = "<group>";
+		};
+		842551A01B099F040028B5B0 /* CustomVideoCell */ = {
+			isa = PBXGroup;
+			children = (
+				842551A11B099F450028B5B0 /* CustomVideoCell.h */,
+				842551A21B099F450028B5B0 /* CustomVideoCell.m */,
+				842551A31B099F450028B5B0 /* CustomVideoCell.xib */,
+			);
+			name = CustomVideoCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,6 +233,7 @@
 			files = (
 				842551841B09874F0028B5B0 /* LaunchScreen.xib in Resources */,
 				842551811B09874F0028B5B0 /* Images.xcassets in Resources */,
+				842551A51B099F450028B5B0 /* CustomVideoCell.xib in Resources */,
 				8425519E1B098AAF0028B5B0 /* PopularVideoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,6 +254,7 @@
 			files = (
 				8425519D1B098AAF0028B5B0 /* PopularVideoViewController.m in Sources */,
 				842551791B09874F0028B5B0 /* AppDelegate.m in Sources */,
+				842551A41B099F450028B5B0 /* CustomVideoCell.m in Sources */,
 				842551761B09874F0028B5B0 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
