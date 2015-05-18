@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "PopularVideoViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,8 +17,25 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    //NewsListViewController *newsList = [[NewsListViewController alloc] init];
+    
+    PopularVideoViewController *popularVideoViewControlelr = [[PopularVideoViewController alloc] init];
+    popularVideoViewControlelr.tabBarItem.title = @"Популярное";
+    UINavigationController *popularVideoNavigationController = [[UINavigationController alloc] initWithRootViewController:popularVideoViewControlelr];
+    
+    
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    [tabBarController setViewControllers:@[popularVideoNavigationController]];
+    [tabBarController.tabBar setBarTintColor:[UIColor redColor]];
+    
+    //self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Default-568h_2x.png"]];
+    [self.window makeKeyAndVisible];
+    [self.window setRootViewController:tabBarController];
+    
     return YES;
+
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
