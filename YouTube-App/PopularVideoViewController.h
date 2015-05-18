@@ -10,4 +10,6 @@
 
 @interface PopularVideoViewController : UIViewController
 
+@property (retain, nonatomic) NSString *DEV_KEY;
+
 @end

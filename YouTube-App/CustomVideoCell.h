@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <YTPlayerView.h>
 
 @interface CustomVideoCell : UITableViewCell
+
+@property (strong, nonatomic) IBOutlet YTPlayerView *playerView;
 
 @end

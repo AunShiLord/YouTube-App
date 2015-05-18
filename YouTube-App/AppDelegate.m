@@ -23,6 +23,7 @@
     
     PopularVideoViewController *popularVideoViewControlelr = [[PopularVideoViewController alloc] init];
     popularVideoViewControlelr.tabBarItem.title = @"Популярное";
+    popularVideoViewControlelr.DEV_KEY = @"AI39si5CD2zGP5P13EMGbpBlu_u3uADsQgCa6kbeWVJUjc6de_tl78-LFU1sozoxCMAwFi2vNd6ZeweOkGTSM9jefaoDHcCD_A";
     UINavigationController *popularVideoNavigationController = [[UINavigationController alloc] initWithRootViewController:popularVideoViewControlelr];
     
     
