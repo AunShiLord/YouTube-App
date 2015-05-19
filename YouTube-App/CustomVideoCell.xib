@@ -31,14 +31,16 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5zp-g8-pJQ" customClass="YTPlayerView">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X2w-oM-qtz">
                         <rect key="frame" x="8" y="8" width="304" height="164"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
-                <outlet property="playerView" destination="5zp-g8-pJQ" id="LOs-kv-kGT"/>
+                <outlet property="option1" destination="p3m-k9-CgL" id="uuz-CF-0z4"/>
+                <outlet property="option2" destination="9qv-br-PnR" id="HZb-dO-ctg"/>
+                <outlet property="previewImage" destination="X2w-oM-qtz" id="t5i-v1-evp"/>
+                <outlet property="title" destination="vt4-NR-CLT" id="0kb-cw-gMH"/>
             </connections>
             <point key="canvasLocation" x="249" y="340"/>
         </tableViewCell>

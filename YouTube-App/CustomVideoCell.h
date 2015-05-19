@@ -11,6 +11,9 @@
 
 @interface CustomVideoCell : UITableViewCell
 
-@property (strong, nonatomic) IBOutlet YTPlayerView *playerView;
+@property (strong, nonatomic) IBOutlet UIImageView *previewImage;
+@property (strong, nonatomic) IBOutlet UILabel *title;
+@property (strong, nonatomic) IBOutlet UILabel *option1;
+@property (strong, nonatomic) IBOutlet UILabel *option2;
 
 @end

@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-youtube-ios-player-helper.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>077AFDD892F622A0DA7B8354</key>
+		<key>126B36B84A758DEA7B2D16C3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6E088413FD6D845621618F1E</key>
+		<key>19E88FBC298A30728BBDEB4D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C2611CFF39385887A466CA56</key>
 		<dict>
 			<key>primary</key>
 			<true/>

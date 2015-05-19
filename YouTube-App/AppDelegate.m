@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "PopularVideoViewController.h"
+#import "SearchVideoViewController.h"
+#import "VideoViewController.h"
 
 @interface AppDelegate ()
 
@@ -20,15 +22,27 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     //NewsListViewController *newsList = [[NewsListViewController alloc] init];
+    NSString *developerKey = @"AIzaSyASGR2chwqKEFBWxbrk-PkbH9wgWBwHIXg";
     
-    PopularVideoViewController *popularVideoViewControlelr = [[PopularVideoViewController alloc] init];
-    popularVideoViewControlelr.tabBarItem.title = @"Популярное";
-    popularVideoViewControlelr.DEV_KEY = @"AI39si5CD2zGP5P13EMGbpBlu_u3uADsQgCa6kbeWVJUjc6de_tl78-LFU1sozoxCMAwFi2vNd6ZeweOkGTSM9jefaoDHcCD_A";
-    UINavigationController *popularVideoNavigationController = [[UINavigationController alloc] initWithRootViewController:popularVideoViewControlelr];
+    VideoViewController *videoViewController = [[VideoViewController alloc] init];
+    UINavigationController *videoNavigationController = [[UINavigationController alloc] init];
     
+    PopularVideoViewController *popularVideoViewController = [[PopularVideoViewController alloc] init];
+    popularVideoViewController.DEV_KEY = developerKey;
+    popularVideoViewController.videoViewController = videoViewController;
+    popularVideoViewController.videoNavigationController = videoNavigationController;
+    UINavigationController *popularVideoNavigationController = [[UINavigationController alloc] initWithRootViewController:popularVideoViewController];
+    popularVideoNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle: @"Популярное" image:nil selectedImage:nil];
+    
+    SearchVideoViewController *searchVideoViewController = [[SearchVideoViewController alloc] init];
+    searchVideoViewController.DEV_KEY = developerKey;
+    searchVideoViewController.videoViewController = videoViewController;
+    searchVideoViewController.videoNavigationController = videoNavigationController;
+    UINavigationController *searchVideoNavigationController = [[UINavigationController alloc] initWithRootViewController:searchVideoViewController];
+    searchVideoNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle: @"Поиск" image:nil selectedImage:nil];
     
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
-    [tabBarController setViewControllers:@[popularVideoNavigationController]];
+    [tabBarController setViewControllers:@[popularVideoNavigationController, searchVideoNavigationController]];
     [tabBarController.tabBar setBarTintColor:[UIColor redColor]];
     
     //self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Default-568h_2x.png"]];

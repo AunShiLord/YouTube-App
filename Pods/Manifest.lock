@@ -1,10 +1,33 @@
 PODS:
-  - youtube-ios-player-helper (0.1.1)
+  - AFNetworking (2.5.4):
+    - AFNetworking/NSURLConnection (= 2.5.4)
+    - AFNetworking/NSURLSession (= 2.5.4)
+    - AFNetworking/Reachability (= 2.5.4)
+    - AFNetworking/Security (= 2.5.4)
+    - AFNetworking/Serialization (= 2.5.4)
+    - AFNetworking/UIKit (= 2.5.4)
+  - AFNetworking/NSURLConnection (2.5.4):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.5.4):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.5.4)
+  - AFNetworking/Security (2.5.4)
+  - AFNetworking/Serialization (2.5.4)
+  - AFNetworking/UIKit (2.5.4):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - youtube-ios-player-helper (0.1.2)
 
 DEPENDENCIES:
+  - AFNetworking
   - youtube-ios-player-helper (~> 0.1.1)
 
 SPEC CHECKSUMS:
-  youtube-ios-player-helper: d7350b9f9070edf482e5d0bd5e8948c0ba1437f3
+  AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  youtube-ios-player-helper: 9b1ff47d73626e83038be3a019ac714472e6e22c
 
 COCOAPODS: 0.37.1
