@@ -28,8 +28,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib
     
-    //self.videoViewController = [[VideoViewController alloc] init];
-    //self.videoNavigationController = [[UINavigationController alloc] initWithRootViewController:self.videoViewController];
+    self.videoViewController = [[VideoViewController alloc] init];
+    self.videoNavigationController = [[UINavigationController alloc] initWithRootViewController:self.videoViewController];
     
     self.videoTableView.delegate = self;
     self.videoTableView.dataSource = self;
@@ -72,7 +72,6 @@
          
          // ANDREY CODE
          NSDictionary *items = [responseObject objectForKey:@"items"];
-         NSLog(@"%@", self.videoListJSON);
          for (NSDictionary *item in items )
          {
              YouTubeVideo *youTubeVideo = [[YouTubeVideo alloc] init];

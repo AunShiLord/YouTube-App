@@ -29,6 +29,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.videoViewController = [[VideoViewController alloc] init];
+    self.videoNavigationController = [[UINavigationController alloc] initWithRootViewController:self.videoViewController];
+    
     self.videoList = [[NSMutableArray alloc] init];
     
     self.searchBar.delegate = self;
@@ -53,8 +56,13 @@
 {
     // getting json from YouTube API
     //NSString *playlistID = @"PLgMaGEI-ZiiZ0ZvUtduoDRVXcU5ELjPcI";
+    NSString *searchString = [self.searchBar.text stringByReplacingOccurrencesOfString:@" " withString: @"+"];
+    
+    // converting string to Percent Escapes format
+    searchString = [searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
     NSString *maxResults = @"50";
-    NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/search?order=rating&part=snippet&q=%@&fields=items(id%%2Csnippet)&maxResults=%@&key=%@", self.searchBar.text, maxResults, self.DEV_KEY];
+    NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/search?&part=snippet&q=%@&fields=items(id%%2Csnippet)&maxResults=%@&key=%@", searchString, maxResults, self.DEV_KEY];
     
     NSLog(@"URL: %@", urlString);
     NSURL *url = [NSURL URLWithString:urlString];
@@ -67,19 +75,21 @@
      {
          self.videoListJSON = (NSDictionary *)responseObject;
          NSLog(@"JSON Retrieved");
-         //NSLog(@"%@", self.videoListJSON);
+         NSLog(@"%@", self.videoListJSON);
+         
+         // cleaning current array with videos
+         [self.videoList removeAllObjects];
          
          // ANDREY CODE
          NSDictionary *items = [responseObject objectForKey:@"items"];
-         NSLog(@"%@", self.videoListJSON);
          for (NSDictionary *item in items )
          {
              YouTubeVideo *youTubeVideo = [[YouTubeVideo alloc] init];
              NSDictionary* snippet = [item objectForKey:@"snippet"];
              youTubeVideo.title = [snippet objectForKey:@"title"];
-             youTubeVideo.videoID = [[snippet objectForKey:@"resourceId"]objectForKey:@"videoId"];
-             if (!youTubeVideo)
-                 continue;
+             youTubeVideo.videoID = [[item objectForKey:@"id"] objectForKey:@"videoId"];
+            // if (!youTubeVideo.videoID)
+             //    continue;
              youTubeVideo.previewUrl = [[[snippet objectForKey:@"thumbnails"] objectForKey:@"high"] objectForKey:@"url"];
              //youTubeVideo .videoDate =[snippet objectForKey:@"publishedAt"];
              [self.videoList addObject:youTubeVideo];
@@ -174,6 +184,7 @@
      YouTubeVideo *youTubeVideo = self.videoList[indexPath.row];
  
      [cell.previewImage setImageWithURL: [NSURL URLWithString: youTubeVideo.previewUrl]];
+     cell.title.text = youTubeVideo.title;
  
  
      return cell;

@@ -29,15 +29,15 @@
     
     PopularVideoViewController *popularVideoViewController = [[PopularVideoViewController alloc] init];
     popularVideoViewController.DEV_KEY = developerKey;
-    popularVideoViewController.videoViewController = videoViewController;
-    popularVideoViewController.videoNavigationController = videoNavigationController;
+    //popularVideoViewController.videoViewController = videoViewController;
+    //popularVideoViewController.videoNavigationController = videoNavigationController;
     UINavigationController *popularVideoNavigationController = [[UINavigationController alloc] initWithRootViewController:popularVideoViewController];
     popularVideoNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle: @"Популярное" image:nil selectedImage:nil];
     
     SearchVideoViewController *searchVideoViewController = [[SearchVideoViewController alloc] init];
     searchVideoViewController.DEV_KEY = developerKey;
-    searchVideoViewController.videoViewController = videoViewController;
-    searchVideoViewController.videoNavigationController = videoNavigationController;
+    //searchVideoViewController.videoViewController = videoViewController;
+    //searchVideoViewController.videoNavigationController = videoNavigationController;
     UINavigationController *searchVideoNavigationController = [[UINavigationController alloc] initWithRootViewController:searchVideoViewController];
     searchVideoNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle: @"Поиск" image:nil selectedImage:nil];
     
