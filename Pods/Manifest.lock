@@ -20,14 +20,25 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - ReactiveCocoa (2.0):
+    - ReactiveCocoa/Core (= 2.0)
+    - ReactiveCocoa/no-arc (= 2.0)
+    - ReactiveCocoa/RACExtensions (= 2.0)
+  - ReactiveCocoa/Core (2.0):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.0)
+  - ReactiveCocoa/RACExtensions (2.0):
+    - ReactiveCocoa/Core
   - youtube-ios-player-helper (0.1.2)
 
 DEPENDENCIES:
   - AFNetworking
+  - ReactiveCocoa (= 2.0.0)
   - youtube-ios-player-helper (~> 0.1.1)
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  ReactiveCocoa: c5347d7b1c348d22a85800e14e89da84c5254cfb
   youtube-ios-player-helper: 9b1ff47d73626e83038be3a019ac714472e6e22c
 
 COCOAPODS: 0.37.1

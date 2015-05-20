@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-ReactiveCocoa.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-youtube-ios-player-helper.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>126B36B84A758DEA7B2D16C3</key>
+		<key>26537FDF059844D9D85E26B3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>19E88FBC298A30728BBDEB4D</key>
+		<key>72D9F767268682526E32B15E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C2611CFF39385887A466CA56</key>
+		<key>73B2983F8E13CC80119DA311</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E144B6F2F735EA902432E0B0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

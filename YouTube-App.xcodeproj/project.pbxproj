@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		10F4783396BFA0BB0A226998 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D59F7426E14CC05C172428C /* libPods.a */; };
+		31619848803AB981C0408FA9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5EA0B58AB3E45A22D08F08 /* libPods.a */; };
 		842551761B09874F0028B5B0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 842551751B09874F0028B5B0 /* main.m */; };
 		842551791B09874F0028B5B0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 842551781B09874F0028B5B0 /* AppDelegate.m */; };
 		842551811B09874F0028B5B0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 842551801B09874F0028B5B0 /* Images.xcassets */; };
@@ -22,6 +22,7 @@
 		8480AC961B0B1B4900B90BC0 /* VideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8480AC941B0B1B4900B90BC0 /* VideoViewController.xib */; };
 		8480AC9B1B0B29F700B90BC0 /* SearchVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8480AC991B0B29F700B90BC0 /* SearchVideoViewController.m */; };
 		8480AC9C1B0B29F700B90BC0 /* SearchVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8480AC9A1B0B29F700B90BC0 /* SearchVideoViewController.xib */; };
+		8480AC9F1B0C4EA900B90BC0 /* YouTubeTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 8480AC9E1B0C4EA900B90BC0 /* YouTubeTools.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,8 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B5EA0B58AB3E45A22D08F08 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5277F116E7177D59E1D4F01A /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		6D59F7426E14CC05C172428C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		842551701B09874F0028B5B0 /* YouTube-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "YouTube-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		842551741B09874F0028B5B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		842551751B09874F0028B5B0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -61,6 +62,8 @@
 		8480AC981B0B29F700B90BC0 /* SearchVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchVideoViewController.h; sourceTree = "<group>"; };
 		8480AC991B0B29F700B90BC0 /* SearchVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchVideoViewController.m; sourceTree = "<group>"; };
 		8480AC9A1B0B29F700B90BC0 /* SearchVideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchVideoViewController.xib; sourceTree = "<group>"; };
+		8480AC9D1B0C4EA900B90BC0 /* YouTubeTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouTubeTools.h; sourceTree = "<group>"; };
+		8480AC9E1B0C4EA900B90BC0 /* YouTubeTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouTubeTools.m; sourceTree = "<group>"; };
 		F50EE58A87336D2FC62E1492 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,7 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10F4783396BFA0BB0A226998 /* libPods.a in Frameworks */,
+				31619848803AB981C0408FA9 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,7 +98,7 @@
 		4384007C8F51244A2A3102DD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6D59F7426E14CC05C172428C /* libPods.a */,
+				1B5EA0B58AB3E45A22D08F08 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -194,8 +197,8 @@
 		8480AC8D1B0B04BC00B90BC0 /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				8480AC8E1B0B051400B90BC0 /* YouTubeVideo.h */,
-				8480AC8F1B0B051400B90BC0 /* YouTubeVideo.m */,
+				8480ACA11B0C4F0300B90BC0 /* YouTubeVideoClass */,
+				8480ACA01B0C4EE800B90BC0 /* YouTubeTools */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -218,6 +221,24 @@
 				8480AC9A1B0B29F700B90BC0 /* SearchVideoViewController.xib */,
 			);
 			name = SearchVideoViewController;
+			sourceTree = "<group>";
+		};
+		8480ACA01B0C4EE800B90BC0 /* YouTubeTools */ = {
+			isa = PBXGroup;
+			children = (
+				8480AC9D1B0C4EA900B90BC0 /* YouTubeTools.h */,
+				8480AC9E1B0C4EA900B90BC0 /* YouTubeTools.m */,
+			);
+			name = YouTubeTools;
+			sourceTree = "<group>";
+		};
+		8480ACA11B0C4F0300B90BC0 /* YouTubeVideoClass */ = {
+			isa = PBXGroup;
+			children = (
+				8480AC8E1B0B051400B90BC0 /* YouTubeVideo.h */,
+				8480AC8F1B0B051400B90BC0 /* YouTubeVideo.m */,
+			);
+			name = YouTubeVideoClass;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -365,6 +386,7 @@
 				8480AC901B0B051400B90BC0 /* YouTubeVideo.m in Sources */,
 				842551A41B099F450028B5B0 /* CustomVideoCell.m in Sources */,
 				842551761B09874F0028B5B0 /* main.m in Sources */,
+				8480AC9F1B0C4EA900B90BC0 /* YouTubeTools.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -24,9 +24,6 @@
     //NewsListViewController *newsList = [[NewsListViewController alloc] init];
     NSString *developerKey = @"AIzaSyASGR2chwqKEFBWxbrk-PkbH9wgWBwHIXg";
     
-    VideoViewController *videoViewController = [[VideoViewController alloc] init];
-    UINavigationController *videoNavigationController = [[UINavigationController alloc] init];
-    
     PopularVideoViewController *popularVideoViewController = [[PopularVideoViewController alloc] init];
     popularVideoViewController.DEV_KEY = developerKey;
     //popularVideoViewController.videoViewController = videoViewController;

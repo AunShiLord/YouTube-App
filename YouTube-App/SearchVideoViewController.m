@@ -49,7 +49,12 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [self getVideoList];
-    [self dismissKeyboard];
+    [self.view endEditing:YES];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [self.view endEditing:YES];
 }
 
 - (void)getVideoList
@@ -80,7 +85,6 @@
          // cleaning current array with videos
          [self.videoList removeAllObjects];
          
-         // ANDREY CODE
          NSDictionary *items = [responseObject objectForKey:@"items"];
          for (NSDictionary *item in items )
          {
@@ -113,46 +117,6 @@
     [operation start];
     
 }
-
-// Reloading data in tableview on typing in textfield
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    
-    // creating predicate
-    NSMutableString *predicateString = [NSMutableString stringWithString:self.searchBar.text];
-    if ([string isEqual:@""])
-        [predicateString deleteCharactersInRange:range];
-    else
-        [predicateString appendString:string];
-    
-    // if length of string in textfiled is more than 2, then search words with format "_wordPart_*"
-    if (predicateString.length > 2)
-        predicateString = [NSMutableString stringWithFormat:@"name LIKE[c] '%@*'",  predicateString];
-    else
-        predicateString = [NSMutableString stringWithFormat:@"name LIKE[c] '*'"];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateString];
-    
-    [self.tableView reloadData];
-    
-    return YES;
-}
-
-// making first letter uppercase
-/*
-- (void)textFieldDidChange:(NSNotification *)notification
-{
-    // removing observer from notification (to make sure it won't call twice)
-    [[NSNotificationCenter defaultCenter] removeObserver:self name: UITextFieldTextDidChangeNotification object:nil];
-    
-    if (self.textField.text.length == 1)
-        // check if first letter is not uppercase
-        if (![[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:[self.textField.text characterAtIndex:0]])
-            // make first letter uppercase
-            self.textField.text = [self.textField.text stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[self.textField.text substringToIndex:1] uppercaseString]];
-    
-}
-*/
 
  // Number of sections in tableview
  - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -202,13 +166,7 @@
  
  - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
  {
-     return 240;
+     return 300;
  }
-
-// Dismiss keyboard on tap
-- (void)dismissKeyboard
-{
-    [self.view endEditing:YES];
-}
 
 @end

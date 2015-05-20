@@ -12,6 +12,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "YouTubeVideo.h"
 #import "VideoViewController.h"
+#import "YouTubeTools.h"
 
 @interface PopularVideoViewController ()<UITableViewDelegate,
                                         UITableViewDataSource>
@@ -52,54 +53,12 @@
 
 - (void)getVideoList
 {
-    // getting json from YouTube API
-    NSString *playlistID = @"PLgMaGEI-ZiiZ0ZvUtduoDRVXcU5ELjPcI";
-    NSString *maxResults = @"50";
-    NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%%2CcontentDetails&maxResults=%@&playlistId=%@&fields=items%%2Fsnippet&key=%@", maxResults, playlistID, self.DEV_KEY];
-
-    NSLog(@"URL: %@", urlString);
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    operation.responseSerializer = [AFJSONResponseSerializer serializer];
-    
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
-         self.videoListJSON = (NSDictionary *)responseObject;
-         NSLog(@"JSON Retrieved");
-         //NSLog(@"%@", self.videoListJSON);
-         
-         // ANDREY CODE
-         NSDictionary *items = [responseObject objectForKey:@"items"];
-         for (NSDictionary *item in items )
-         {
-             YouTubeVideo *youTubeVideo = [[YouTubeVideo alloc] init];
-             NSDictionary* snippet = [item objectForKey:@"snippet"];
-             youTubeVideo.title = [snippet objectForKey:@"title"];
-             youTubeVideo.videoID = [[snippet objectForKey:@"resourceId"]objectForKey:@"videoId"];
-             youTubeVideo.previewUrl = [[[snippet objectForKey:@"thumbnails"] objectForKey:@"high"] objectForKey:@"url"];
-             //youTubeVideo .videoDate =[snippet objectForKey:@"publishedAt"];
-             [self.videoList addObject:youTubeVideo];
-         }
-         [self.videoTableView reloadData];
-         
-
-         //[self.tableView reloadData];
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
-         
-         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error Retrieving Weather"
-                                                             message:[error localizedDescription]
-                                                            delegate:nil
-                                                   cancelButtonTitle:@"Ok"
-                                                   otherButtonTitles:nil];
-         [alertView show];
-     }];
-    
-    // 5
-    [operation start];
-
+    self.videoList = [YouTubeTools popularVideoArrayWithMaxResults:@"10"
+                                             withCompletitionBlock:^()
+                      {
+                          [self.videoTableView reloadData];
+                      }
+                      ];
 }
 
 - (void) handleRefresh
@@ -155,8 +114,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 240;
+    return 300;
 }
-
 
 @end
