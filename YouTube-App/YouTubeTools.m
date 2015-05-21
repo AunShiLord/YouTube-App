@@ -164,6 +164,7 @@
         youTubeVideo.title = [snippet objectForKey:@"title"];
         youTubeVideo.videoDescription = [snippet objectForKey:@"description"];
         youTubeVideo.publishedAt = [snippet objectForKey:@"publishedAt"];
+        youTubeVideo.channelTitle = [snippet objectForKey:@"channelTitle"];
         if ([[[snippet objectForKey:@"thumbnails"] objectForKey:@"high"] objectForKey:@"url"])
             youTubeVideo.previewUrl = [[[snippet objectForKey:@"thumbnails"] objectForKey:@"high"] objectForKey:@"url"];
         else

@@ -99,7 +99,13 @@
     YouTubeVideo *youTubeVideo = self.videoList[indexPath.row];
     
     [cell.previewImage setImageWithURL: [NSURL URLWithString: youTubeVideo.previewUrl]];
-    
+    [cell.previewImage setImageWithURL: [NSURL URLWithString: youTubeVideo.previewUrl]];
+    cell.title.text = youTubeVideo.title;
+    cell.likeCount.text = youTubeVideo.likesCount;
+    cell.dislikeCount.text = youTubeVideo.dislikesCount;
+    //cell.likeCount.text = [NSString stringWithFormat:@"Просмотров: %@", youTubeVideo.viewsCount];
+    cell.chanelTitle.text = [NSString stringWithFormat:@"%@  -  Просмотров: %@", youTubeVideo.channelTitle, youTubeVideo.viewsCount];
+    cell.time.text = youTubeVideo.duration;
     
     return cell;
 
@@ -116,7 +122,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 300;
+    return 320;
 }
 
 @end

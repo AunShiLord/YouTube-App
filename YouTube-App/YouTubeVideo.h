@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSString *videoDescription;
 @property (strong, nonatomic) NSString *previewUrl;
 @property (strong, nonatomic) NSString *videoID;
+@property (strong, nonatomic) NSString *channelTitle;
 
 @property (strong, nonatomic) NSString *publishedAt;
 @property (strong, nonatomic) NSString *duration;

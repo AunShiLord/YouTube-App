@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7702"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VideoViewController">
             <connections>
+                <outlet property="mpContainer" destination="oZP-q1-CkP" id="2IH-wL-Oz3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="youTubePlayer" destination="2c3-cT-6wG" id="YM1-u5-pyx"/>
             </connections>
@@ -15,23 +16,18 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2c3-cT-6wG" customClass="YTPlayerView">
-                    <rect key="frame" x="0.0" y="234" width="320" height="0.0"/>
+                <view contentMode="scaleToFill" id="2c3-cT-6wG" customClass="YTPlayerView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="184"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" id="oZP-q1-CkP">
+                    <rect key="frame" x="0.0" y="192" width="320" height="376"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.81470959600000004" green="0.32706697559999998" blue="0.26077076999999999" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstItem="2c3-cT-6wG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="DYQ-Nf-tkX"/>
-                <constraint firstAttribute="trailing" secondItem="2c3-cT-6wG" secondAttribute="trailing" id="EHo-Qn-UdI"/>
-                <constraint firstItem="2c3-cT-6wG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="KVw-Hv-bDi"/>
-                <constraint firstAttribute="trailing" secondItem="2c3-cT-6wG" secondAttribute="trailing" id="ToH-AF-K8j"/>
-                <constraint firstAttribute="centerY" secondItem="2c3-cT-6wG" secondAttribute="centerY" constant="50" id="UhF-nP-y9c"/>
-                <constraint firstAttribute="trailing" secondItem="2c3-cT-6wG" secondAttribute="trailing" id="aOE-V1-RFv"/>
-                <constraint firstItem="2c3-cT-6wG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="sGr-Ed-8uO"/>
-                <constraint firstItem="2c3-cT-6wG" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="234" id="t3t-hm-ehg"/>
-                <constraint firstItem="2c3-cT-6wG" firstAttribute="top" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="top" id="umb-TY-ZcK"/>
-            </constraints>
             <point key="canvasLocation" x="383" y="245"/>
         </view>
     </objects>

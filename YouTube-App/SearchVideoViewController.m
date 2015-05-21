@@ -100,6 +100,35 @@
  
      [cell.previewImage setImageWithURL: [NSURL URLWithString: youTubeVideo.previewUrl]];
      cell.title.text = youTubeVideo.title;
+     cell.likeCount.text = youTubeVideo.likesCount;
+     cell.dislikeCount.text = youTubeVideo.dislikesCount;
+     //cell.viewCount.text = [NSString stringWithFormat:@"Просмотров: %@", youTubeVideo.viewsCount];
+     cell.chanelTitle.text = [NSString stringWithFormat:@"%@  -  Просмотров: %@", youTubeVideo.channelTitle, youTubeVideo.viewsCount];
+     //NSString *duration = youTubeVideo.duration;
+     NSMutableString *duration = [NSMutableString stringWithString:youTubeVideo.duration];
+     //[duration repla]
+     NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!");
+     NSLog(@"%@", duration);
+     NSString *temp = [duration substringFromIndex:2];
+     NSLog(@"%@", temp);
+     temp = [temp substringToIndex:[temp length] - 1];
+     NSLog(@"%@", temp);
+     
+     duration = [NSMutableString stringWithString: temp];
+     for (int i; i<[duration length]; i++)
+     {
+         char c = [duration characterAtIndex:i];
+         if(c>='0' && c<='9')
+         {
+             continue;
+         }
+         else
+         {
+             NSRange range = {i,i};
+             [duration replaceCharactersInRange:range withString:@":"];
+         }
+     }
+     cell.time.text = duration;
  
  
      return cell;
@@ -117,7 +146,7 @@
  
  - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
  {
-     return 300;
+     return 320;
  }
 
 @end
