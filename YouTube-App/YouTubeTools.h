@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 @class YouTubeVideo;
 
+
 @interface YouTubeTools : NSObject
 
 + (NSString *) developerKey;
@@ -22,5 +23,6 @@
                                    maxResults:(NSString *) maxResults
                         withCompletitionBlock:(void (^)() ) reloadData;
 
-+ (YouTubeVideo *) detailedVideoInfoForId: (NSString *) videoId;
+//+ (RACSignal*)detailedVideoInfoForId: (NSString *) videoId;
+//+ (YouTubeVideo *) detailedVideoInfoForId: (NSString *) videoId;
 @end

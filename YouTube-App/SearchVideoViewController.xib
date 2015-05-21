@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="SnO-kh-ceX">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="SnO-kh-ceX">
                     <rect key="frame" x="8" y="46" width="304" height="514"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <searchBar key="tableHeaderView" contentMode="redraw" placeholder="What are you looking for?" showsCancelButton="YES" id="z0w-Ud-dzb">
@@ -31,6 +31,12 @@
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="SnO-kh-ceX" secondAttribute="bottom" id="WGj-vI-1pd"/>
+                <constraint firstItem="SnO-kh-ceX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="c9e-sc-Owy"/>
+                <constraint firstAttribute="trailing" secondItem="SnO-kh-ceX" secondAttribute="trailing" id="l08-7c-B7n"/>
+                <constraint firstItem="SnO-kh-ceX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="lYS-Dw-BXx"/>
+            </constraints>
             <point key="canvasLocation" x="383" y="245"/>
         </view>
     </objects>

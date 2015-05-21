@@ -8,7 +8,7 @@
 
 #import "PopularVideoViewController.h"
 #import "CustomVideoCell.h"
-#import "AFNetworking.h"
+// #import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
 #import "YouTubeVideo.h"
 #import "VideoViewController.h"
@@ -20,6 +20,7 @@
 @property (retain, nonatomic) NSDictionary *videoListJSON;
 @property (strong, nonatomic) NSMutableArray *videoList;
 @property (weak, nonatomic) IBOutlet UITableView *videoTableView;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -43,9 +44,9 @@
     self.navigationItem.title = @"Популярные видео";
     //self.navigationController.navigationBar.translucent = NO;
     
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(getVideoList) forControlEvents:UIControlEventValueChanged];
-    [self.videoTableView addSubview:refreshControl];
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(getVideoList) forControlEvents:UIControlEventValueChanged];
+    [self.videoTableView addSubview:self.refreshControl];
     
     [self getVideoList];
     
@@ -57,6 +58,7 @@
                                              withCompletitionBlock:^()
                       {
                           [self.videoTableView reloadData];
+                          [self.refreshControl endRefreshing];
                       }
                       ];
 }

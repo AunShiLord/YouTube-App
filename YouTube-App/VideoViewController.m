@@ -60,6 +60,8 @@
     
     [self.youTubePlayer loadWithVideoId:self.selectedVideo.videoID];
     [self.youTubePlayer playVideo];
+    
+    //[self.view mini]
 }
 
 - (IBAction)back

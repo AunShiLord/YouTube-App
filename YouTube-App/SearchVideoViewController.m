@@ -8,10 +8,11 @@
 
 #import "SearchVideoViewController.h"
 #import "CustomVideoCell.h"
-#import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
-#import "YouTubeVideo.h"
 #import "VideoViewController.h"
+
+#import "YouTubeVideo.h"
+#import "YouTubeTools.h"
 
 @interface SearchVideoViewController () <UITableViewDelegate,
                                         UITableViewDataSource,
@@ -59,63 +60,13 @@
 
 - (void)getVideoList
 {
-    // getting json from YouTube API
-    //NSString *playlistID = @"PLgMaGEI-ZiiZ0ZvUtduoDRVXcU5ELjPcI";
-    NSString *searchString = [self.searchBar.text stringByReplacingOccurrencesOfString:@" " withString: @"+"];
-    
-    // converting string to Percent Escapes format
-    searchString = [searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    NSString *maxResults = @"50";
-    NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/search?&part=snippet&q=%@&fields=items(id%%2Csnippet)&maxResults=%@&key=%@", searchString, maxResults, self.DEV_KEY];
-    
-    NSLog(@"URL: %@", urlString);
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    operation.responseSerializer = [AFJSONResponseSerializer serializer];
-    
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
-         self.videoListJSON = (NSDictionary *)responseObject;
-         NSLog(@"JSON Retrieved");
-         NSLog(@"%@", self.videoListJSON);
-         
-         // cleaning current array with videos
-         [self.videoList removeAllObjects];
-         
-         NSDictionary *items = [responseObject objectForKey:@"items"];
-         for (NSDictionary *item in items )
-         {
-             YouTubeVideo *youTubeVideo = [[YouTubeVideo alloc] init];
-             NSDictionary* snippet = [item objectForKey:@"snippet"];
-             youTubeVideo.title = [snippet objectForKey:@"title"];
-             youTubeVideo.videoID = [[item objectForKey:@"id"] objectForKey:@"videoId"];
-            // if (!youTubeVideo.videoID)
-             //    continue;
-             youTubeVideo.previewUrl = [[[snippet objectForKey:@"thumbnails"] objectForKey:@"high"] objectForKey:@"url"];
-             //youTubeVideo .videoDate =[snippet objectForKey:@"publishedAt"];
-             [self.videoList addObject:youTubeVideo];
-         }
-         [self.tableView reloadData];
-         
-         
-         //[self.tableView reloadData];
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
-         
-         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                             message:[error localizedDescription]
-                                                            delegate:nil
-                                                   cancelButtonTitle:@"Ok"
-                                                   otherButtonTitles:nil];
-         [alertView show];
-     }];
-    
-    // 5
-    [operation start];
-    
+    self.videoList = [YouTubeTools findVideoArrayWithString:self.searchBar.text
+                                                 maxResults:@"50"
+                                      withCompletitionBlock:^
+                      {
+                          [self.tableView reloadData];
+                      }
+                      ];
 }
 
  // Number of sections in tableview

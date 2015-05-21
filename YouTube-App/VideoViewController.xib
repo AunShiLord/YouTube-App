@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7702"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VideoViewController">
@@ -15,13 +15,23 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" id="2c3-cT-6wG" customClass="YTPlayerView">
-                    <rect key="frame" x="0.0" y="174" width="320" height="220"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2c3-cT-6wG" customClass="YTPlayerView">
+                    <rect key="frame" x="0.0" y="234" width="320" height="0.0"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="2c3-cT-6wG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="DYQ-Nf-tkX"/>
+                <constraint firstAttribute="trailing" secondItem="2c3-cT-6wG" secondAttribute="trailing" id="EHo-Qn-UdI"/>
+                <constraint firstItem="2c3-cT-6wG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="KVw-Hv-bDi"/>
+                <constraint firstAttribute="trailing" secondItem="2c3-cT-6wG" secondAttribute="trailing" id="ToH-AF-K8j"/>
+                <constraint firstAttribute="centerY" secondItem="2c3-cT-6wG" secondAttribute="centerY" constant="50" id="UhF-nP-y9c"/>
+                <constraint firstAttribute="trailing" secondItem="2c3-cT-6wG" secondAttribute="trailing" id="aOE-V1-RFv"/>
+                <constraint firstItem="2c3-cT-6wG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="sGr-Ed-8uO"/>
+                <constraint firstItem="2c3-cT-6wG" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="234" id="t3t-hm-ehg"/>
+                <constraint firstItem="2c3-cT-6wG" firstAttribute="top" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="top" id="umb-TY-ZcK"/>
+            </constraints>
             <point key="canvasLocation" x="383" y="245"/>
         </view>
     </objects>

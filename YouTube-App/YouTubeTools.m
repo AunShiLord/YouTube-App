@@ -25,7 +25,6 @@
     NSString *playlistID = @"PLgMaGEI-ZiiZ0ZvUtduoDRVXcU5ELjPcI";
     NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%%2CcontentDetails&maxResults=%@&playlistId=%@&fields=items%%2Fsnippet&key=%@", maxResults, playlistID, [self developerKey]];
     
-    NSLog(@"URL: %@", urlString);
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
@@ -36,22 +35,35 @@
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
      {
-         NSLog(@"JSON Retrieved");
-
          NSDictionary *items = [responseObject objectForKey:@"items"];
+         
+         int count = 0;
          for (NSDictionary *item in items )
          {
-             YouTubeVideo *youTubeVideo = [[YouTubeVideo alloc] init];
              NSDictionary* snippet = [item objectForKey:@"snippet"];
-             youTubeVideo.title = [snippet objectForKey:@"title"];
-             youTubeVideo.videoID = [[snippet objectForKey:@"resourceId"]objectForKey:@"videoId"];
-             youTubeVideo.previewUrl = [[[snippet objectForKey:@"thumbnails"] objectForKey:@"high"] objectForKey:@"url"];
-             //youTubeVideo .videoDate =[snippet objectForKey:@"publishedAt"];
-             [videoList addObject:youTubeVideo];
+            
+             __block YouTubeVideo *youTubeVideo = [[YouTubeVideo alloc] init];
+             youTubeVideo.sortID = count;
+             count+=1;
+             NSString *videoID = [[snippet objectForKey:@"resourceId"]objectForKey:@"videoId"];
+             [[self responceForDetailedVideoInfoForId:videoID] subscribeNext:^(id detailedResponce)
+              {
+                  [self detailedVideoInfo:youTubeVideo withJSON:detailedResponce];
+                  [videoList addObject:youTubeVideo];
+
+                  if ([videoList count] == [items count])
+                  {
+                      NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"sortID"
+                                                                                     ascending:YES];
+                      NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+                      [videoList sortUsingDescriptors:sortDescriptors];
+                      reloadData();
+                  }
+                  
+              }];
+             
          }
-         reloadData();
-         
-         //[self.tableView reloadData];
+
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
          
@@ -73,14 +85,15 @@
                                    maxResults:(NSString *) maxResults
                         withCompletitionBlock:(void (^)() ) reloadData;
 {
-    return nil;
-}
-
-+ (YouTubeVideo *) detailedVideoInfoForId: (NSString *) videoId
-{
-    
     // getting json from YouTube API
-    NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/videos?part=snippet%%2CcontentDetails%%2Cstatistics&id=%@&key=%@",videoId, [self developerKey]];
+    NSString *searchString = [string stringByReplacingOccurrencesOfString:@" " withString: @"+"];
+    
+    // converting string to Percent Escapes format
+    searchString = [searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/search?part=snippet&q=%@&fields=items%%2Fid&maxResults=%@&key=%@", searchString, maxResults, [self developerKey]];
+    
+    
     
     NSLog(@"URL: %@", urlString);
     NSURL *url = [NSURL URLWithString:urlString];
@@ -89,69 +102,120 @@
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     operation.responseSerializer = [AFJSONResponseSerializer serializer];
     
+    NSMutableArray *videoList = [[NSMutableArray alloc] init];
+    
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
      {
-         YouTubeVideo *youTubeVideo = [[YouTubeVideo alloc] init];
+         int count = 0;
          NSDictionary *items = [responseObject objectForKey:@"items"];
          for (NSDictionary *item in items )
          {
-             NSDictionary* snippet = [item objectForKey:@"snippet"];
-             NSDictionary* contentDetails = [item objectForKey:@"contentDetails"];
-             NSDictionary* statistics = [item objectForKey:@"statistics"];
+             __block YouTubeVideo *youTubeVideo = [[YouTubeVideo alloc] init];
+             youTubeVideo.sortID = count;
+             count+=1;
+             NSString *videoID = [[item objectForKey:@"id"] objectForKey:@"videoId"];
+             [[self responceForDetailedVideoInfoForId:videoID] subscribeNext:^(id detailedResponce)
+              {
+                  [self detailedVideoInfo:youTubeVideo withJSON:detailedResponce];
+                  [videoList addObject:youTubeVideo];
+                  
+                  if ([videoList count] == [items count])
+                  {
+                      NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"sortID"
+                                                                                     ascending:YES];
+                      NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+                      [videoList sortUsingDescriptors:sortDescriptors];
+                      reloadData();
+                  }
+                  
+              }];
              
-             youTubeVideo.videoID = [item objectForKey:@"id"];
-             
-             youTubeVideo.title = [snippet objectForKey:@"title"];
-             youTubeVideo.videoDescription = [snippet objectForKey:@"description"];
-             youTubeVideo.publishedAt = [snippet objectForKey:@"publishedAt"];
-             if ([[[snippet objectForKey:@"thumbnails"] objectForKey:@"high"] objectForKey:@"url"])
-                 youTubeVideo.previewUrl = [[[snippet objectForKey:@"thumbnails"] objectForKey:@"high"] objectForKey:@"url"];
-             else
-                 [[[snippet objectForKey:@"thumbnails"] objectForKey:@"medium"] objectForKey:@"url"];
-             
-             youTubeVideo.duration = [contentDetails objectForKey:@"duration"];
-             
-             youTubeVideo.viewsCount = [statistics objectForKey:@"viewCount"];
-             youTubeVideo.likesCount = [statistics objectForKey:@"likeCount"];
-             youTubeVideo.dislikesCount = [statistics objectForKey:@"dislikeCount"];
-             youTubeVideo.commentCount = [statistics objectForKey:@"commentCount"];
-             
-             [youTubeVideo testPrint];
          }
-         
-         //return youTubeVideo;
          
          //[self.tableView reloadData];
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
          
-         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error Retrieving Video"
+         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
                                                              message:[error localizedDescription]
                                                             delegate:nil
                                                    cancelButtonTitle:@"Ok"
                                                    otherButtonTitles:nil];
          [alertView show];
-        
      }];
     
-    return nil;
+    // 5
+    [operation start];
+    return videoList;
 }
 
-#pragma system method
-// first request
--(RACSignal*)signalGetNetworkStep1 {
-    NSURL* url = ...;
-    return [RACSignal createSignal:^(RACDisposable *(id subscriber) {
-        NSURLRequest *request1 = [NSURLRequest requestWithURL:url];
-        AFJSONRequestOperation *operation1 = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-            [subscriber sendNext:JSON];
-            [subscriber sendCompleted];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error){
-            [subscriber sendError:error];
-        }];
-        [operation1 start];
-        return nil;
++ (void) detailedVideoInfo:(YouTubeVideo *)youTubeVideo withJSON:(NSDictionary *)json
+{
+    
+    NSDictionary *items = [json objectForKey:@"items"];
+    for (NSDictionary *item in items )
+    {
+        NSDictionary* snippet = [item objectForKey:@"snippet"];
+        NSDictionary* contentDetails = [item objectForKey:@"contentDetails"];
+        NSDictionary* statistics = [item objectForKey:@"statistics"];
+        
+        youTubeVideo.videoID = [item objectForKey:@"id"];
+        
+        youTubeVideo.title = [snippet objectForKey:@"title"];
+        youTubeVideo.videoDescription = [snippet objectForKey:@"description"];
+        youTubeVideo.publishedAt = [snippet objectForKey:@"publishedAt"];
+        if ([[[snippet objectForKey:@"thumbnails"] objectForKey:@"high"] objectForKey:@"url"])
+            youTubeVideo.previewUrl = [[[snippet objectForKey:@"thumbnails"] objectForKey:@"high"] objectForKey:@"url"];
+        else
+            [[[snippet objectForKey:@"thumbnails"] objectForKey:@"medium"] objectForKey:@"url"];
+        
+        youTubeVideo.duration = [contentDetails objectForKey:@"duration"];
+        
+        youTubeVideo.viewsCount = [statistics objectForKey:@"viewCount"];
+        youTubeVideo.likesCount = [statistics objectForKey:@"likeCount"];
+        youTubeVideo.dislikesCount = [statistics objectForKey:@"dislikeCount"];
+        youTubeVideo.commentCount = [statistics objectForKey:@"commentCount"];
+        
+        [youTubeVideo testPrint];
     }
-                                     }
 
+}
+
+#pragma system methods
+// first request
++ (RACSignal*)responceForDetailedVideoInfoForId: (NSString *) videoId
+{
+    // getting json from YouTube API
+    NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/videos?part=snippet%%2CcontentDetails%%2Cstatistics&id=%@&key=%@",videoId, [self developerKey]];
+
+    NSLog(@"URL: %@", urlString);
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    return [RACSignal createSignal:^RACDisposable *(id sibscriber)
+            {
+                AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+                operation.responseSerializer = [AFJSONResponseSerializer serializer];
+                
+                [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
+                 {
+                     [sibscriber sendNext:responseObject];
+                     [sibscriber sendCompleted];
+                 } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+                 {
+                     [sibscriber sendError:error];
+                 }];
+                [operation start];
+                return nil;
+            }];
+
+}
+
++ (NSMutableArray *)sortVideoArray: (NSMutableArray *)array
+{
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"sortID"
+                                                 ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    return [NSMutableArray arrayWithArray:[array sortedArrayUsingDescriptors:sortDescriptors]];
+}
 @end

@@ -10,6 +10,8 @@
 
 @interface YouTubeVideo : NSObject
 
+@property int sortID;
+
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *videoDescription;
 @property (strong, nonatomic) NSString *previewUrl;
