@@ -91,7 +91,7 @@
     // converting string to Percent Escapes format
     searchString = [searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
-    NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/search?part=snippet&q=%@&fields=items%%2Fid&maxResults=%@&key=%@", searchString, maxResults, [self developerKey]];
+    NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/search?part=snippet&q=%@&fields=items%%2Fid&maxResults=%@&type=video&key=%@", searchString, maxResults, [self developerKey]];
     
     
     
@@ -106,29 +106,30 @@
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
      {
-         int count = 0;
          NSDictionary *items = [responseObject objectForKey:@"items"];
+         int count = 0;
          for (NSDictionary *item in items )
          {
              __block YouTubeVideo *youTubeVideo = [[YouTubeVideo alloc] init];
              youTubeVideo.sortID = count;
              count+=1;
              NSString *videoID = [[item objectForKey:@"id"] objectForKey:@"videoId"];
-             [[self responceForDetailedVideoInfoForId:videoID] subscribeNext:^(id detailedResponce)
-              {
-                  [self detailedVideoInfo:youTubeVideo withJSON:detailedResponce];
-                  [videoList addObject:youTubeVideo];
-                  
-                  if ([videoList count] == [items count])
+
+                 [[self responceForDetailedVideoInfoForId:videoID] subscribeNext:^(id detailedResponce)
                   {
-                      NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"sortID"
-                                                                                     ascending:YES];
-                      NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-                      [videoList sortUsingDescriptors:sortDescriptors];
-                      reloadData();
-                  }
+                      [self detailedVideoInfo:youTubeVideo withJSON:detailedResponce];
+                      [videoList addObject:youTubeVideo];
                   
-              }];
+                      if ([videoList count] == [items count])
+                      {
+                          NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"sortID"
+                                                                                     ascending:YES];
+                          NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+                          [videoList sortUsingDescriptors:sortDescriptors];
+                          reloadData();
+                      }
+                  
+                  }];
              
          }
          
@@ -170,12 +171,50 @@
         else
             [[[snippet objectForKey:@"thumbnails"] objectForKey:@"medium"] objectForKey:@"url"];
         
-        youTubeVideo.duration = [contentDetails objectForKey:@"duration"];
-        
         youTubeVideo.viewsCount = [statistics objectForKey:@"viewCount"];
         youTubeVideo.likesCount = [statistics objectForKey:@"likeCount"];
         youTubeVideo.dislikesCount = [statistics objectForKey:@"dislikeCount"];
         youTubeVideo.commentCount = [statistics objectForKey:@"commentCount"];
+        
+        NSMutableString *duration = [NSMutableString stringWithString:[contentDetails objectForKey:@"duration"]];
+        // time to a propper format
+        NSString *temp = [duration substringFromIndex:2];
+        //temp = [temp substringToIndex:[temp length] - 1];
+        duration = [NSMutableString stringWithString: temp];
+        int i = 0;
+        int length = [duration length];
+        while (i<length)
+        {
+            char c = [duration characterAtIndex:i];
+            if(!(c>='0' && c<='9'))
+            {
+                NSRange range = {i,1};
+                switch (c)
+                {
+                    case 'H':
+                        [duration replaceCharactersInRange:range withString:@"ч:"];
+                        i++;
+                        length++;
+                        break;
+                    case 'M':
+                        [duration replaceCharactersInRange:range withString:@"м:"];
+                        i++;
+                        length++;
+                        break;
+                    case 'S':
+                        [duration replaceCharactersInRange:range withString:@"с"];
+                        break;
+                    case ':':
+                        break;
+                    default:
+                        [duration replaceCharactersInRange:range withString:@" "];
+                        break;
+                }
+            }
+            i++;
+        }
+        youTubeVideo.duration = duration;
+
         
         [youTubeVideo testPrint];
     }

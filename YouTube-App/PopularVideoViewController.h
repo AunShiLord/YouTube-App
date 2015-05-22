@@ -11,7 +11,6 @@
 
 @interface PopularVideoViewController : UIViewController
 
-@property (retain, nonatomic) NSString *DEV_KEY;
 @property (strong, nonatomic) VideoViewController *videoViewController;
 @property (strong, nonatomic) UINavigationController *videoNavigationController;
 

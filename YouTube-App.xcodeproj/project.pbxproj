@@ -20,8 +20,6 @@
 		8480AC901B0B051400B90BC0 /* YouTubeVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8480AC8F1B0B051400B90BC0 /* YouTubeVideo.m */; };
 		8480AC951B0B1B4900B90BC0 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8480AC931B0B1B4900B90BC0 /* VideoViewController.m */; };
 		8480AC961B0B1B4900B90BC0 /* VideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8480AC941B0B1B4900B90BC0 /* VideoViewController.xib */; };
-		8480AC9B1B0B29F700B90BC0 /* SearchVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8480AC991B0B29F700B90BC0 /* SearchVideoViewController.m */; };
-		8480AC9C1B0B29F700B90BC0 /* SearchVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8480AC9A1B0B29F700B90BC0 /* SearchVideoViewController.xib */; };
 		8480AC9F1B0C4EA900B90BC0 /* YouTubeTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 8480AC9E1B0C4EA900B90BC0 /* YouTubeTools.m */; };
 		8480ACA41B0DC95800B90BC0 /* dislike.png in Resources */ = {isa = PBXBuildFile; fileRef = 8480ACA21B0DC95800B90BC0 /* dislike.png */; };
 		8480ACA51B0DC95800B90BC0 /* like.png in Resources */ = {isa = PBXBuildFile; fileRef = 8480ACA31B0DC95800B90BC0 /* like.png */; };
@@ -61,9 +59,6 @@
 		8480AC921B0B1B4900B90BC0 /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
 		8480AC931B0B1B4900B90BC0 /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
 		8480AC941B0B1B4900B90BC0 /* VideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoViewController.xib; sourceTree = "<group>"; };
-		8480AC981B0B29F700B90BC0 /* SearchVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchVideoViewController.h; sourceTree = "<group>"; };
-		8480AC991B0B29F700B90BC0 /* SearchVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchVideoViewController.m; sourceTree = "<group>"; };
-		8480AC9A1B0B29F700B90BC0 /* SearchVideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchVideoViewController.xib; sourceTree = "<group>"; };
 		8480AC9D1B0C4EA900B90BC0 /* YouTubeTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouTubeTools.h; sourceTree = "<group>"; };
 		8480AC9E1B0C4EA900B90BC0 /* YouTubeTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouTubeTools.m; sourceTree = "<group>"; };
 		8480ACA21B0DC95800B90BC0 /* dislike.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dislike.png; path = Pictures/dislike.png; sourceTree = SOURCE_ROOT; };
@@ -172,7 +167,6 @@
 		842551991B098A580028B5B0 /* User Interface */ = {
 			isa = PBXGroup;
 			children = (
-				8480AC971B0B299F00B90BC0 /* SearchVideoViewController */,
 				8425519F1B099EE50028B5B0 /* PopularVideoViewController */,
 				8480AC911B0B1AD400B90BC0 /* VideoViewController */,
 				842551A01B099F040028B5B0 /* CustomVideoCell */,
@@ -217,16 +211,6 @@
 				8480AC941B0B1B4900B90BC0 /* VideoViewController.xib */,
 			);
 			name = VideoViewController;
-			sourceTree = "<group>";
-		};
-		8480AC971B0B299F00B90BC0 /* SearchVideoViewController */ = {
-			isa = PBXGroup;
-			children = (
-				8480AC981B0B29F700B90BC0 /* SearchVideoViewController.h */,
-				8480AC991B0B29F700B90BC0 /* SearchVideoViewController.m */,
-				8480AC9A1B0B29F700B90BC0 /* SearchVideoViewController.xib */,
-			);
-			name = SearchVideoViewController;
 			sourceTree = "<group>";
 		};
 		8480ACA01B0C4EE800B90BC0 /* YouTubeTools */ = {
@@ -330,7 +314,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8480ACA51B0DC95800B90BC0 /* like.png in Resources */,
-				8480AC9C1B0B29F700B90BC0 /* SearchVideoViewController.xib in Resources */,
 				842551841B09874F0028B5B0 /* LaunchScreen.xib in Resources */,
 				842551811B09874F0028B5B0 /* Images.xcassets in Resources */,
 				8480ACA41B0DC95800B90BC0 /* dislike.png in Resources */,
@@ -387,7 +370,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8480AC9B1B0B29F700B90BC0 /* SearchVideoViewController.m in Sources */,
 				8425519D1B098AAF0028B5B0 /* PopularVideoViewController.m in Sources */,
 				842551791B09874F0028B5B0 /* AppDelegate.m in Sources */,
 				8480AC951B0B1B4900B90BC0 /* VideoViewController.m in Sources */,

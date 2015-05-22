@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "PopularVideoViewController.h"
-#import "SearchVideoViewController.h"
 #import "VideoViewController.h"
 
 @interface AppDelegate ()
@@ -21,30 +20,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    //NewsListViewController *newsList = [[NewsListViewController alloc] init];
-    NSString *developerKey = @"AIzaSyASGR2chwqKEFBWxbrk-PkbH9wgWBwHIXg";
-    
     PopularVideoViewController *popularVideoViewController = [[PopularVideoViewController alloc] init];
-    popularVideoViewController.DEV_KEY = developerKey;
-    //popularVideoViewController.videoViewController = videoViewController;
-    //popularVideoViewController.videoNavigationController = videoNavigationController;
     UINavigationController *popularVideoNavigationController = [[UINavigationController alloc] initWithRootViewController:popularVideoViewController];
     popularVideoNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle: @"Популярное" image:nil selectedImage:nil];
     
-    SearchVideoViewController *searchVideoViewController = [[SearchVideoViewController alloc] init];
-    searchVideoViewController.DEV_KEY = developerKey;
-    //searchVideoViewController.videoViewController = videoViewController;
-    //searchVideoViewController.videoNavigationController = videoNavigationController;
-    UINavigationController *searchVideoNavigationController = [[UINavigationController alloc] initWithRootViewController:searchVideoViewController];
-    searchVideoNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle: @"Поиск" image:nil selectedImage:nil];
-    
-    UITabBarController *tabBarController = [[UITabBarController alloc] init];
-    [tabBarController setViewControllers:@[popularVideoNavigationController, searchVideoNavigationController]];
-    [tabBarController.tabBar setBarTintColor:[UIColor redColor]];
-    
     //self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Default-568h_2x.png"]];
     [self.window makeKeyAndVisible];
-    [self.window setRootViewController:tabBarController];
+    [self.window setRootViewController:popularVideoNavigationController];
     
     return YES;
 

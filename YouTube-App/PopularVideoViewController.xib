@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PopularVideoViewController">
             <connections>
+                <outlet property="searchDisplayController" destination="e0v-hE-ZG1" id="MYp-M2-n6k"/>
                 <outlet property="videoTableView" destination="yTd-FG-vaY" id="dWo-BD-Qqq"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -30,6 +31,14 @@
             </constraints>
             <point key="canvasLocation" x="262" y="373"/>
         </view>
+        <searchDisplayController id="e0v-hE-ZG1">
+            <connections>
+                <outlet property="delegate" destination="-1" id="CnR-rZ-huT"/>
+                <outlet property="searchContentsController" destination="-1" id="LzI-Ky-lB9"/>
+                <outlet property="searchResultsDataSource" destination="-1" id="oWd-wx-OZO"/>
+                <outlet property="searchResultsDelegate" destination="-1" id="gg0-eW-zm1"/>
+            </connections>
+        </searchDisplayController>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
