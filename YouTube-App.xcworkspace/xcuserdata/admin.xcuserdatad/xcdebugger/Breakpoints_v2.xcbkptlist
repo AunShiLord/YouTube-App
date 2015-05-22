@@ -40,11 +40,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YouTube-App/PopularVideoViewController.m"
-            timestampString = "453980963.210143"
+            timestampString = "453983602.41963"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "420"
-            endingLineNumber = "420">
+            startingLineNumber = "422"
+            endingLineNumber = "422">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -54,11 +54,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YouTube-App/PopularVideoViewController.m"
-            timestampString = "453980963.210143"
+            timestampString = "453983602.41963"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "415"
-            endingLineNumber = "415">
+            startingLineNumber = "417"
+            endingLineNumber = "417">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -68,11 +68,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YouTube-App/PopularVideoViewController.m"
-            timestampString = "453980963.210143"
+            timestampString = "453983602.41963"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "421"
-            endingLineNumber = "421">
+            startingLineNumber = "423"
+            endingLineNumber = "423">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -706,7 +706,23 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YouTube-App/PopularVideoViewController.m"
-            timestampString = "453980963.210143"
+            timestampString = "453983602.41963"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "348"
+            endingLineNumber = "348"
+            landmarkName = "-minimizeMp:animated:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YouTube-App/PopularVideoViewController.m"
+            timestampString = "453983602.41963"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "346"
@@ -722,11 +738,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YouTube-App/PopularVideoViewController.m"
-            timestampString = "453980963.210143"
+            timestampString = "453983602.41963"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "344"
-            endingLineNumber = "344"
+            startingLineNumber = "349"
+            endingLineNumber = "349"
             landmarkName = "-minimizeMp:animated:"
             landmarkType = "5">
          </BreakpointContent>
@@ -738,27 +754,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YouTube-App/PopularVideoViewController.m"
-            timestampString = "453980963.210143"
+            timestampString = "453982601.013089"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "347"
-            endingLineNumber = "347"
-            landmarkName = "-minimizeMp:animated:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "YouTube-App/PopularVideoViewController.m"
-            timestampString = "453981012.517549"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "271"
-            endingLineNumber = "271"
+            startingLineNumber = "272"
+            endingLineNumber = "272"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>

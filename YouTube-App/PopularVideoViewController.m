@@ -129,7 +129,7 @@
     CGRect playerViewRect = CGRectMake(self.view.frame.size.width+10,
                                        20,
                                        self.view.frame.size.width,
-                                       self.view.frame.size.width / 16 * 9);
+                                       self.view.frame.size.width / 16 * 9 + 20);
     CGRect detailsViewRect = CGRectMake(playerViewRect.origin.x,
                                         playerViewRect.size.height,
                                         playerViewRect.size.width,
@@ -252,6 +252,7 @@
 
     [self presentViewController:self.videoNavigationController animated:YES completion:nil];
      */
+    
     YouTubeVideo *youTubeVideo;
     if (self.isSearch)
         youTubeVideo = self.videoList[indexPath.row];
@@ -260,11 +261,11 @@
     
     NSDictionary *playerVars = @{
                                  @"playsinline" : @1,
-                                 @"showinfo" :@0,
-                                 @"controls" :@2,
+                                 //@"showinfo" :@0,
+                                 //@"controls" :@2,
                                  
                                  };
-        
+    
     [self.playerView loadWithVideoId:youTubeVideo.videoID playerVars:playerVars];
     [self.playerView playVideo];
     
@@ -286,6 +287,7 @@
         
         detailsViewRect.origin.x=0;
         self.detailsView.frame = detailsViewRect;
+        self.detailsView.alpha = 1.0;
     }];
     
 }
@@ -338,16 +340,16 @@
         containerFrame = CGRectMake(0, 0, 320, 180);
         tallContainerAlpha = 1.0;
     }
+    NSLog(@"W: %f H: %f", self.playerView.frame.size.width, self.playerView.frame.size.height);
+    containerFrame = CGRectMake(200, 350, self.playerView.frame.size.width, self.playerView.frame.size.height);
     
-    containerFrame = CGRectMake(0, 20, 319, 180);
-    
-    NSTimeInterval duration = (animated)? 2.5 : 0.0;
+    NSTimeInterval duration = (animated)? 0.3 : 0.0;
     
     [UIView animateWithDuration:duration animations:^{
         self.playerView.frame = containerFrame;
         //self.mpContainer.frame = containerFrame;
         self.detailsView.alpha = tallContainerAlpha;
-        
+        NSLog(@"W: %f H: %f", self.playerView.frame.size.width, self.playerView.frame.size.height);
         NSLog(@"X: %f Y: %f", self.playerView.frame.origin.x, self.playerView.frame.origin.y);
     }];
 }
