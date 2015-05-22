@@ -14,6 +14,8 @@
 #import "VideoViewController.h"
 #import "YouTubeTools.h"
 
+#import "YTPlayerView.h"
+
 @interface PopularVideoViewController ()<UITableViewDelegate,
                                         UITableViewDataSource,
                                         UISearchBarDelegate,
@@ -28,6 +30,14 @@
 @property (nonatomic)         int                   rowCount;
 @property (nonatomic)         BOOL                  isSearch;
 
+@property (strong, nonatomic) IBOutlet YTPlayerView *playerView;
+@property (strong, nonatomic) IBOutlet UIView *detailsView;
+
+@property (strong, nonatomic) IBOutlet UILabel *videoTitle;
+@property (strong, nonatomic) IBOutlet UILabel *channelID;
+@property (strong, nonatomic) IBOutlet UILabel *likeCount;
+@property (strong, nonatomic) IBOutlet UILabel *dislikeCount;
+@property (strong, nonatomic) IBOutlet UITextView *videoDescription;
 
 @end
 
@@ -96,9 +106,51 @@
     [self.refreshControl addTarget:self action:@selector(getPopularVideoList) forControlEvents:UIControlEventValueChanged];
     [self.videoTableView addSubview:self.refreshControl];
     
+    UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeDown:)];
+    UISwipeGestureRecognizer *swipeUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeUp:)];
+    
+    swipeUp.direction = UISwipeGestureRecognizerDirectionUp;
+    swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
+    
+    [self.playerView addGestureRecognizer:swipeDown];
+    [self.playerView addGestureRecognizer:swipeDown];
+    
+    
     [self getPopularVideoList];
     
     }
+
+-(void)viewWillLayoutSubviews
+{
+    //self.playerView.hidden = YES;
+    //self.detailsView.hidden = YES;
+    
+    
+    CGRect playerViewRect = CGRectMake(self.view.frame.size.width+10,
+                                       20,
+                                       self.view.frame.size.width,
+                                       self.view.frame.size.width / 16 * 9);
+    CGRect detailsViewRect = CGRectMake(playerViewRect.origin.x,
+                                        playerViewRect.size.height,
+                                        playerViewRect.size.width,
+                                        self.view.frame.size.height - playerViewRect.size.height);
+    
+    
+    /*
+    CGRect playerViewRect = CGRectMake(500,
+                                       0,
+                                       200,
+                                       300);
+    CGRect detailsViewRect = CGRectMake(500,
+                                        400,
+                                        200,
+                                        500);
+    */
+    
+    self.playerView.frame = playerViewRect;
+    
+    self.detailsView.frame = detailsViewRect;
+}
 
 - (void)getPopularVideoList
 {
@@ -166,10 +218,7 @@
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CustomVideoCell"owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
-     
-    NSDictionary *playerVars = @{
-                                 @"playsinline" : @1,
-                                 };
+    
     //[cell.playerView loadWithVideoId:@"M7lc1UVf-VE" playerVars:playerVars];
     YouTubeVideo *youTubeVideo;
     if (self.isSearch)
@@ -195,13 +244,114 @@
 // Action performed after tapping on the cell
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // setting link to full post
-    self.videoViewController.selectedVideo = self.videoList[indexPath.row];
-    //[self.navigationController pushViewController:self.videoNavigationController animated:YES];
+    /*
+    if (self.isSearch)
+        self.videoViewController.selectedVideo = self.videoList[indexPath.row];
+    else
+        self.videoViewController.selectedVideo = self.popularVideoList[indexPath.row];
+
     [self presentViewController:self.videoNavigationController animated:YES completion:nil];
-    //[self presentViewController:self.videoViewController animated:YES completion:nil];
+     */
+    YouTubeVideo *youTubeVideo;
+    if (self.isSearch)
+        youTubeVideo = self.videoList[indexPath.row];
+    else
+        youTubeVideo = self.popularVideoList[indexPath.row];
+    
+    NSDictionary *playerVars = @{
+                                 @"playsinline" : @1,
+                                 @"showinfo" :@0,
+                                 @"controls" :@2,
+                                 
+                                 };
+        
+    [self.playerView loadWithVideoId:youTubeVideo.videoID playerVars:playerVars];
+    [self.playerView playVideo];
+    
+    self.videoTitle.text = youTubeVideo.title;
+    self.videoDescription.text = youTubeVideo.videoDescription;
+    self.likeCount.text = youTubeVideo.likesCount;
+    self.dislikeCount.text = youTubeVideo.dislikesCount;
+    self.channelID.text = youTubeVideo.channelTitle;
+    
+    [[self navigationController] setNavigationBarHidden:YES animated:YES];
+    
+    [UIView animateWithDuration:1.0 animations:^
+    {
+        CGRect playerViewRect = self.playerView.frame;
+        CGRect detailsViewRect = self.detailsView.frame;
+        
+        playerViewRect.origin.x=0;
+        self.playerView.frame = playerViewRect;
+        
+        detailsViewRect.origin.x=0;
+        self.detailsView.frame = detailsViewRect;
+    }];
     
 }
+
+- (void)swipeDown:(UIGestureRecognizer *)gr {
+    [self minimizeMp:YES animated:YES];
+}
+
+- (void)swipeUp:(UIGestureRecognizer *)gr {
+    [self minimizeMp:NO animated:YES];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (BOOL)mpIsMinimized {
+    return self.playerView.frame.origin.y > 50;
+}
+
+
+- (void)minimizeMp:(BOOL)minimized animated:(BOOL)animated {
+    
+    NSLog(@"X: %f Y: %f", self.playerView.frame.origin.x, self.playerView.frame.origin.y);
+    if ([self mpIsMinimized] == minimized) return;
+    
+    CGRect tallContainerFrame, containerFrame;
+    CGFloat tallContainerAlpha;
+    
+    if (minimized)
+    {
+        CGFloat mpWidth = 160;
+        CGFloat mpHeight = 90; // 160:90 == 16:9
+        
+        CGFloat x = self.view.bounds.size.width-mpWidth-50;
+        CGFloat y = self.view.bounds.size.height-mpHeight-50;
+        
+        NSLog(@"X: Bound:%f, Frame: %f, Position: %f", self.view.bounds.size.width, self.view.frame.size.width, x);
+        NSLog(@"Y: Bound:%f, Frame: %f, Position: %f", self.view.bounds.size.height, self.view.frame.size.height, y);
+        
+        tallContainerFrame = CGRectMake(x, y, 320, self.view.bounds.size.height);
+        containerFrame = CGRectMake(x, y, mpWidth, mpHeight);
+        tallContainerAlpha = 0.0;
+        
+    }
+    else
+    {
+        tallContainerFrame = self.view.bounds;
+        containerFrame = CGRectMake(0, 0, 320, 180);
+        tallContainerAlpha = 1.0;
+    }
+    
+    containerFrame = CGRectMake(0, 20, 319, 180);
+    
+    NSTimeInterval duration = (animated)? 2.5 : 0.0;
+    
+    [UIView animateWithDuration:duration animations:^{
+        self.playerView.frame = containerFrame;
+        //self.mpContainer.frame = containerFrame;
+        self.detailsView.alpha = tallContainerAlpha;
+        
+        NSLog(@"X: %f Y: %f", self.playerView.frame.origin.x, self.playerView.frame.origin.y);
+    }];
+}
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

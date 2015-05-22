@@ -95,7 +95,7 @@
     
     
     
-    NSLog(@"URL: %@", urlString);
+    //NSLog(@"URL: %@", urlString);
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
@@ -216,7 +216,7 @@
         youTubeVideo.duration = duration;
 
         
-        [youTubeVideo testPrint];
+        //[youTubeVideo testPrint];
     }
 
 }
@@ -228,7 +228,7 @@
     // getting json from YouTube API
     NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/videos?part=snippet%%2CcontentDetails%%2Cstatistics&id=%@&key=%@",videoId, [self developerKey]];
 
-    NSLog(@"URL: %@", urlString);
+    //NSLog(@"URL: %@", urlString);
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     

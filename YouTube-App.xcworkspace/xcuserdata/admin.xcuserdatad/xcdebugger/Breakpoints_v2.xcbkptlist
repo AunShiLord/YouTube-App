@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YouTube-App/PopularVideoViewController.m"
-            timestampString = "453967840.775559"
+            timestampString = "453980963.210143"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -40,11 +40,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YouTube-App/PopularVideoViewController.m"
-            timestampString = "453968069.453203"
+            timestampString = "453980963.210143"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "270"
-            endingLineNumber = "270">
+            startingLineNumber = "420"
+            endingLineNumber = "420">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -54,11 +54,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YouTube-App/PopularVideoViewController.m"
-            timestampString = "453968069.453203"
+            timestampString = "453980963.210143"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265">
+            startingLineNumber = "415"
+            endingLineNumber = "415">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -68,11 +68,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YouTube-App/PopularVideoViewController.m"
-            timestampString = "453968069.453203"
+            timestampString = "453980963.210143"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "271"
-            endingLineNumber = "271">
+            startingLineNumber = "421"
+            endingLineNumber = "421">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -194,11 +194,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YouTube-App/PopularVideoViewController.m"
-            timestampString = "453967840.775559"
+            timestampString = "453980963.210143"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
             landmarkName = "-getPopularVideoList"
             landmarkType = "5">
          </BreakpointContent>
@@ -274,11 +274,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YouTube-App/PopularVideoViewController.m"
-            timestampString = "453967840.775559"
+            timestampString = "453980963.210143"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
             landmarkName = "-getPopularVideoList"
             landmarkType = "5">
          </BreakpointContent>
@@ -354,11 +354,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YouTube-App/PopularVideoViewController.m"
-            timestampString = "453967840.775559"
+            timestampString = "453980963.210143"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "-getPopularVideoList"
             landmarkType = "5">
          </BreakpointContent>
@@ -370,11 +370,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YouTube-App/PopularVideoViewController.m"
-            timestampString = "453967840.775559"
+            timestampString = "453980963.210143"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
             landmarkName = "-getPopularVideoList"
             landmarkType = "5">
          </BreakpointContent>
@@ -450,11 +450,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YouTube-App/PopularVideoViewController.m"
-            timestampString = "453967840.775559"
+            timestampString = "453980963.210143"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "-getPopularVideoList"
             landmarkType = "5">
          </BreakpointContent>
@@ -658,11 +658,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YouTube-App/PopularVideoViewController.m"
-            timestampString = "453967840.775559"
+            timestampString = "453980963.210143"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -674,12 +674,92 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YouTube-App/PopularVideoViewController.m"
-            timestampString = "453967840.775559"
+            timestampString = "453980963.210143"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YouTube-App/PopularVideoViewController.m"
+            timestampString = "453980963.210143"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "246"
+            endingLineNumber = "246"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YouTube-App/PopularVideoViewController.m"
+            timestampString = "453980963.210143"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "346"
+            endingLineNumber = "346"
+            landmarkName = "-minimizeMp:animated:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YouTube-App/PopularVideoViewController.m"
+            timestampString = "453980963.210143"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "344"
+            endingLineNumber = "344"
+            landmarkName = "-minimizeMp:animated:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YouTube-App/PopularVideoViewController.m"
+            timestampString = "453980963.210143"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "347"
+            endingLineNumber = "347"
+            landmarkName = "-minimizeMp:animated:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YouTube-App/PopularVideoViewController.m"
+            timestampString = "453981012.517549"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "271"
+            endingLineNumber = "271"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
