@@ -11,7 +11,6 @@
 // #import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
 #import "YouTubeVideo.h"
-#import "VideoViewController.h"
 #import "YouTubeTools.h"
 
 #import "YTPlayerView.h"
@@ -19,7 +18,8 @@
 @interface PopularVideoViewController ()<UITableViewDelegate,
                                         UITableViewDataSource,
                                         UISearchBarDelegate,
-                                        UISearchControllerDelegate>
+                                        UISearchControllerDelegate,
+                                        YTPlayerViewDelegate>
 
 @property (retain, nonatomic) NSDictionary          *videoListJSON;
 @property (strong, nonatomic) NSMutableArray        *popularVideoList;
@@ -31,13 +31,15 @@
 @property (nonatomic)         BOOL                  isSearch;
 
 @property (strong, nonatomic) IBOutlet YTPlayerView *playerView;
-@property (strong, nonatomic) IBOutlet UIView *detailsView;
+@property (strong, nonatomic) IBOutlet UIView       *detailsView;
 
-@property (strong, nonatomic) IBOutlet UILabel *videoTitle;
-@property (strong, nonatomic) IBOutlet UILabel *channelID;
-@property (strong, nonatomic) IBOutlet UILabel *likeCount;
-@property (strong, nonatomic) IBOutlet UILabel *dislikeCount;
+@property (strong, nonatomic) IBOutlet UILabel      *videoTitle;
+@property (strong, nonatomic) IBOutlet UILabel      *channelID;
+@property (strong, nonatomic) IBOutlet UILabel      *likeCount;
+@property (strong, nonatomic) IBOutlet UILabel      *dislikeCount;
 @property (strong, nonatomic) IBOutlet UITextView *videoDescription;
+
+@property BOOL                                      *statusBarNeeded;
 
 @end
 
@@ -58,7 +60,7 @@
         [self.navigationItem setLeftBarButtonItem:leftBarButtonItem];
         self.navigationItem.leftBarButtonItem.enabled = NO;
 
-        /*
+
         UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Поиск"
                                                                                style:UIBarButtonItemStyleDone
                                                                               target:self
@@ -66,7 +68,7 @@
         
         rightBarButtonItem.tintColor = [UIColor blackColor];
         [self.navigationItem setRightBarButtonItem:rightBarButtonItem];
-         */
+
     }
     
     return self;
@@ -75,9 +77,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib
-    
-    self.videoViewController = [[VideoViewController alloc] init];
-    self.videoNavigationController = [[UINavigationController alloc] initWithRootViewController:self.videoViewController];
     
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     //self.searchController.searchResultsUpdater = self;
@@ -91,6 +90,8 @@
     
     self.videoTableView.delegate = self;
     self.videoTableView.dataSource = self;
+    
+    self.playerView.delegate = self;
     
     self.videoTableView.tableHeaderView = self.searchController.searchBar;
     
@@ -113,21 +114,20 @@
     swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
     
     [self.playerView addGestureRecognizer:swipeDown];
-    [self.playerView addGestureRecognizer:swipeDown];
+    [self.playerView addGestureRecognizer:swipeUp];
     
     
     [self getPopularVideoList];
     
-    }
-
--(void)viewWillLayoutSubviews
-{
-    //self.playerView.hidden = YES;
-    //self.detailsView.hidden = YES;
+    self.statusBarNeeded = YES;
+    [self setNeedsStatusBarAppearanceUpdate];
     
+    // layouting views
+    
+    self.view.frame = [[UIScreen mainScreen] bounds];
     
     CGRect playerViewRect = CGRectMake(self.view.frame.size.width+10,
-                                       20,
+                                       0,
                                        self.view.frame.size.width,
                                        self.view.frame.size.width / 16 * 9 + 20);
     CGRect detailsViewRect = CGRectMake(playerViewRect.origin.x,
@@ -135,22 +135,14 @@
                                         playerViewRect.size.width,
                                         self.view.frame.size.height - playerViewRect.size.height);
     
-    
-    /*
-    CGRect playerViewRect = CGRectMake(500,
-                                       0,
-                                       200,
-                                       300);
-    CGRect detailsViewRect = CGRectMake(500,
-                                        400,
-                                        200,
-                                        500);
-    */
-    
     self.playerView.frame = playerViewRect;
     
     self.detailsView.frame = detailsViewRect;
-}
+    
+    self.videoTableView.frame = self.view.bounds;
+
+    }
+
 
 - (void)getPopularVideoList
 {
@@ -191,6 +183,7 @@
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
     [self.view endEditing:YES];
+    //self.searchController.active = NO;
 }
 
 // Number of sections in tableview
@@ -244,14 +237,15 @@
 // Action performed after tapping on the cell
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    /*
-    if (self.isSearch)
-        self.videoViewController.selectedVideo = self.videoList[indexPath.row];
-    else
-        self.videoViewController.selectedVideo = self.popularVideoList[indexPath.row];
-
-    [self presentViewController:self.videoNavigationController animated:YES completion:nil];
-     */
+    NSLog(@"\nCLICK ON TABLE VIEW CELL");
+    NSLog(@"\nPlayer possition: x:%f y:%f\nw:%f h:%f", self.playerView.frame.origin.x,
+          self.playerView.frame.origin.y,
+          self.playerView.frame.size.width,
+          self.playerView.frame.size.height);
+    NSLog(@"\nWebView possition: x:%f y:%f\nw:%f h:%f", self.playerView.webView.frame.origin.x,
+          self.playerView.webView.frame.origin.y,
+          self.playerView.webView.frame.size.width,
+          self.playerView.webView.frame.size.height);
     
     YouTubeVideo *youTubeVideo;
     if (self.isSearch)
@@ -260,13 +254,23 @@
         youTubeVideo = self.popularVideoList[indexPath.row];
     
     NSDictionary *playerVars = @{
-                                 @"playsinline" : @1,
-                                 //@"showinfo" :@0,
-                                 //@"controls" :@2,
+                                 @"playsinline" : @"1",
+                                 @"autoplay" :@1,
+                                 @"showinfo" :@0,
+                                 @"controls" :@1,
+                                 @"enablejsapi" :@1,
+                                 @"modestbranding" :@1,
+                                 @"rel": @0,
+                                 @"fs": @1,
+                                 @"theme" :@"light"
+                                 
                                  
                                  };
     
+    //NSDictionary *playerParams = @{@"videoId" : youTubeVideo.videoID, @"playerVars" : playerVars};
+    
     [self.playerView loadWithVideoId:youTubeVideo.videoID playerVars:playerVars];
+
     [self.playerView playVideo];
     
     self.videoTitle.text = youTubeVideo.title;
@@ -277,17 +281,30 @@
     
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
     
-    [UIView animateWithDuration:1.0 animations:^
+    self.statusBarNeeded = NO;
+    [self setNeedsStatusBarAppearanceUpdate];
+    
+    self.searchController.active = NO;
+    [self.view endEditing:YES];
+
+    [UIView animateWithDuration:0.3 animations:^
     {
         CGRect playerViewRect = self.playerView.frame;
         CGRect detailsViewRect = self.detailsView.frame;
         
-        playerViewRect.origin.x=0;
+        playerViewRect.origin.x = 0;
+        playerViewRect.origin.y = 0;
+        playerViewRect.size.width = self.view.bounds.size.width;
+        playerViewRect.size.height = playerViewRect.size.width / 16 * 9 + 20;
         self.playerView.frame = playerViewRect;
         
-        detailsViewRect.origin.x=0;
+        detailsViewRect.origin.x = 0;
+        detailsViewRect.origin.y = playerViewRect.size.height;
         self.detailsView.frame = detailsViewRect;
         self.detailsView.alpha = 1.0;
+        
+        [[UIApplication sharedApplication] setStatusBarHidden:NO];
+        //[self.playerView setSizeOfIFrameToWidth:160 Height:90];
     }];
     
 }
@@ -320,37 +337,57 @@
     
     if (minimized)
     {
-        CGFloat mpWidth = 160;
-        CGFloat mpHeight = 90; // 160:90 == 16:9
+        CGFloat mpWidth = self.playerView.frame.size.width / 2;
+        CGFloat mpHeight = self.playerView.frame.size.height / 2;
         
-        CGFloat x = self.view.bounds.size.width-mpWidth-50;
-        CGFloat y = self.view.bounds.size.height-mpHeight-50;
+        CGFloat x = self.view.bounds.size.width-mpWidth - 20;
+        CGFloat y = self.view.bounds.size.height-mpHeight - 20;
         
         NSLog(@"X: Bound:%f, Frame: %f, Position: %f", self.view.bounds.size.width, self.view.frame.size.width, x);
         NSLog(@"Y: Bound:%f, Frame: %f, Position: %f", self.view.bounds.size.height, self.view.frame.size.height, y);
         
-        tallContainerFrame = CGRectMake(x, y, 320, self.view.bounds.size.height);
+        tallContainerFrame = CGRectMake(0, self.view.frame.size.height,
+                                        self.detailsView.frame.size.width, self.detailsView.frame.size.height);
         containerFrame = CGRectMake(x, y, mpWidth, mpHeight);
         tallContainerAlpha = 0.0;
         
+        self.searchController.active = NO;
+        [self.view endEditing:YES];
+        
+        self.statusBarNeeded = YES;
+        [self setNeedsStatusBarAppearanceUpdate];
+        
+        [[self navigationController] setNavigationBarHidden:NO animated:YES];
     }
     else
     {
-        tallContainerFrame = self.view.bounds;
-        containerFrame = CGRectMake(0, 0, 320, 180);
+        containerFrame.origin.x = 0;
+        containerFrame.origin.y = 0;
+        containerFrame.size.width = self.view.bounds.size.width;
+        containerFrame.size.height = containerFrame.size.width / 16 * 9 + 20;
+        
+        tallContainerFrame = self.detailsView.frame;
+        tallContainerFrame.origin.y = containerFrame.size.height;
         tallContainerAlpha = 1.0;
+        
+        self.statusBarNeeded = NO;
+        [self setNeedsStatusBarAppearanceUpdate];
+        
+        
+        
+        [[self navigationController] setNavigationBarHidden:YES animated:YES];
     }
-    NSLog(@"W: %f H: %f", self.playerView.frame.size.width, self.playerView.frame.size.height);
-    containerFrame = CGRectMake(200, 350, self.playerView.frame.size.width, self.playerView.frame.size.height);
     
     NSTimeInterval duration = (animated)? 0.3 : 0.0;
     
     [UIView animateWithDuration:duration animations:^{
+        
+        //self.youTubePlayer.frame = containerFrame;
         self.playerView.frame = containerFrame;
-        //self.mpContainer.frame = containerFrame;
+       // self.playerView.webView.frame = CGRectMake(0, 0, containerFrame.size.width, containerFrame.size.height);
+        self.detailsView.frame = tallContainerFrame;
         self.detailsView.alpha = tallContainerAlpha;
-        NSLog(@"W: %f H: %f", self.playerView.frame.size.width, self.playerView.frame.size.height);
-        NSLog(@"X: %f Y: %f", self.playerView.frame.origin.x, self.playerView.frame.origin.y);
+        
     }];
 }
 
@@ -361,6 +398,7 @@
 }
 
 - (IBAction)searchIconButtonClicked {
+    /*
     if (self.searchController.active || (self.videoTableView.contentOffset.y < 44))
     {
         if (self.searchController.active)
@@ -377,7 +415,22 @@
         //CGRect searchBarFrame = self.searchController.searchBar.frame;
         //[self.tableView scrollRectToVisible:searchBarFrame animated:NO];
     }
+     */
+    if (self.searchController.isActive)
+        self.searchController.active = NO;
+    else
+    {
+        CGRect searchBarFrame = self.searchController.searchBar.frame;
+        [self.videoTableView scrollRectToVisible:searchBarFrame animated:NO];
+        self.searchController.active = YES;
+    }
     
+    
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return !self.statusBarNeeded;
 }
 
 - (void)hideSearchBar {

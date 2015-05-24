@@ -18,8 +18,6 @@
 		842551A41B099F450028B5B0 /* CustomVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 842551A21B099F450028B5B0 /* CustomVideoCell.m */; };
 		842551A51B099F450028B5B0 /* CustomVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842551A31B099F450028B5B0 /* CustomVideoCell.xib */; };
 		8480AC901B0B051400B90BC0 /* YouTubeVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8480AC8F1B0B051400B90BC0 /* YouTubeVideo.m */; };
-		8480AC951B0B1B4900B90BC0 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8480AC931B0B1B4900B90BC0 /* VideoViewController.m */; };
-		8480AC961B0B1B4900B90BC0 /* VideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8480AC941B0B1B4900B90BC0 /* VideoViewController.xib */; };
 		8480AC9F1B0C4EA900B90BC0 /* YouTubeTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 8480AC9E1B0C4EA900B90BC0 /* YouTubeTools.m */; };
 		8480ACA41B0DC95800B90BC0 /* dislike.png in Resources */ = {isa = PBXBuildFile; fileRef = 8480ACA21B0DC95800B90BC0 /* dislike.png */; };
 		8480ACA51B0DC95800B90BC0 /* like.png in Resources */ = {isa = PBXBuildFile; fileRef = 8480ACA31B0DC95800B90BC0 /* like.png */; };
@@ -56,9 +54,6 @@
 		842551A31B099F450028B5B0 /* CustomVideoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomVideoCell.xib; sourceTree = "<group>"; };
 		8480AC8E1B0B051400B90BC0 /* YouTubeVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouTubeVideo.h; sourceTree = "<group>"; };
 		8480AC8F1B0B051400B90BC0 /* YouTubeVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouTubeVideo.m; sourceTree = "<group>"; };
-		8480AC921B0B1B4900B90BC0 /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
-		8480AC931B0B1B4900B90BC0 /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
-		8480AC941B0B1B4900B90BC0 /* VideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoViewController.xib; sourceTree = "<group>"; };
 		8480AC9D1B0C4EA900B90BC0 /* YouTubeTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouTubeTools.h; sourceTree = "<group>"; };
 		8480AC9E1B0C4EA900B90BC0 /* YouTubeTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouTubeTools.m; sourceTree = "<group>"; };
 		8480ACA21B0DC95800B90BC0 /* dislike.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dislike.png; path = Pictures/dislike.png; sourceTree = SOURCE_ROOT; };
@@ -168,7 +163,6 @@
 			isa = PBXGroup;
 			children = (
 				8425519F1B099EE50028B5B0 /* PopularVideoViewController */,
-				8480AC911B0B1AD400B90BC0 /* VideoViewController */,
 				842551A01B099F040028B5B0 /* CustomVideoCell */,
 			);
 			name = "User Interface";
@@ -201,16 +195,6 @@
 				8480ACA01B0C4EE800B90BC0 /* YouTubeTools */,
 			);
 			name = "Data Model";
-			sourceTree = "<group>";
-		};
-		8480AC911B0B1AD400B90BC0 /* VideoViewController */ = {
-			isa = PBXGroup;
-			children = (
-				8480AC921B0B1B4900B90BC0 /* VideoViewController.h */,
-				8480AC931B0B1B4900B90BC0 /* VideoViewController.m */,
-				8480AC941B0B1B4900B90BC0 /* VideoViewController.xib */,
-			);
-			name = VideoViewController;
 			sourceTree = "<group>";
 		};
 		8480ACA01B0C4EE800B90BC0 /* YouTubeTools */ = {
@@ -318,7 +302,6 @@
 				842551811B09874F0028B5B0 /* Images.xcassets in Resources */,
 				8480ACA41B0DC95800B90BC0 /* dislike.png in Resources */,
 				842551A51B099F450028B5B0 /* CustomVideoCell.xib in Resources */,
-				8480AC961B0B1B4900B90BC0 /* VideoViewController.xib in Resources */,
 				8425519E1B098AAF0028B5B0 /* PopularVideoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -372,7 +355,6 @@
 			files = (
 				8425519D1B098AAF0028B5B0 /* PopularVideoViewController.m in Sources */,
 				842551791B09874F0028B5B0 /* AppDelegate.m in Sources */,
-				8480AC951B0B1B4900B90BC0 /* VideoViewController.m in Sources */,
 				8480AC901B0B051400B90BC0 /* YouTubeVideo.m in Sources */,
 				842551A41B099F450028B5B0 /* CustomVideoCell.m in Sources */,
 				842551761B09874F0028B5B0 /* main.m in Sources */,

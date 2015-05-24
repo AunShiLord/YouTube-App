@@ -15,6 +15,9 @@
 
 + (NSString *) developerKey
 {
+    // iOS
+    //return @"AIzaSyAmxl1yiU1wRRmn8-_jUTLaurqhWHYmmxs";
+    // browser
     return @"AIzaSyASGR2chwqKEFBWxbrk-PkbH9wgWBwHIXg";
 }
 
