@@ -185,7 +185,7 @@
         //temp = [temp substringToIndex:[temp length] - 1];
         duration = [NSMutableString stringWithString: temp];
         int i = 0;
-        int length = [duration length];
+        int length = (int)[duration length];
         while (i<length)
         {
             char c = [duration characterAtIndex:i];

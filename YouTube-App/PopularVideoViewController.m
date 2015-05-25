@@ -39,7 +39,7 @@
 @property (strong, nonatomic) IBOutlet UILabel      *dislikeCount;
 @property (strong, nonatomic) IBOutlet UITextView *videoDescription;
 
-@property BOOL                                      *statusBarNeeded;
+@property BOOL                                      statusBarNeeded;
 
 @end
 
@@ -109,12 +109,15 @@
     
     UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeDown:)];
     UISwipeGestureRecognizer *swipeUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeUp:)];
+    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft:)];
     
     swipeUp.direction = UISwipeGestureRecognizerDirectionUp;
     swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
+    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     
     [self.playerView addGestureRecognizer:swipeDown];
     [self.playerView addGestureRecognizer:swipeUp];
+    [self.playerView addGestureRecognizer:swipeLeft];
     
     
     [self getPopularVideoList];
@@ -156,7 +159,6 @@
                       }
                       ];
     self.isSearch = NO;
-    self.rowCount = [self.popularVideoList count];
 }
 
 - (void) handleRefresh
@@ -309,11 +311,31 @@
     
 }
 
-- (void)swipeDown:(UIGestureRecognizer *)gr {
+#pragma mark Gesture Recognizers
+
+-(void)swipeLeft:(UIGestureRecognizer *)gr
+{
+    if (![self mpIsMinimized])
+        return;
+    [self.playerView stopVideo];
+    
+    CGRect playerFrame = self.playerView.frame;
+    playerFrame.origin.x = -self.playerView.frame.size.width;
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        self.playerView.frame = playerFrame;
+        
+    }];
+}
+
+- (void)swipeDown:(UIGestureRecognizer *)gr
+{
     [self minimizeMp:YES animated:YES];
 }
 
-- (void)swipeUp:(UIGestureRecognizer *)gr {
+- (void)swipeUp:(UIGestureRecognizer *)gr
+{
     [self minimizeMp:NO animated:YES];
 }
 
@@ -354,7 +376,7 @@
         self.searchController.active = NO;
         [self.view endEditing:YES];
         
-        self.statusBarNeeded = YES;
+        self.statusBarNeeded = TRUE;
         [self setNeedsStatusBarAppearanceUpdate];
         
         [[self navigationController] setNavigationBarHidden:NO animated:YES];
