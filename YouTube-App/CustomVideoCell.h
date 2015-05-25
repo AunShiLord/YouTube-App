@@ -13,9 +13,10 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *previewImage;
 @property (strong, nonatomic) IBOutlet UILabel *title;
-@property (strong, nonatomic) IBOutlet UITextField *time;
+@property (strong, nonatomic) IBOutlet UILabel *time;
 @property (strong, nonatomic) IBOutlet UILabel *likeCount;
 @property (strong, nonatomic) IBOutlet UILabel *dislikeCount;
 @property (strong, nonatomic) IBOutlet UILabel *chanelTitle;
+@property (strong, nonatomic) IBOutlet UILabel *viewCount;
 
 @end

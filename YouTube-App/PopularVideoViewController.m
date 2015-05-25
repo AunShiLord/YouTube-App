@@ -143,6 +143,12 @@
     self.detailsView.frame = detailsViewRect;
     
     self.videoTableView.frame = self.view.bounds;
+    self.playerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    /*
+    self.playerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin |
+    UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin |
+    UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+     */
 
     }
 
@@ -210,7 +216,12 @@
     CustomVideoCell *cell = (CustomVideoCell *)[self.videoTableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil)
     {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CustomVideoCell"owner:self options:nil];
+        NSString *nibName;
+        if (self.isSearch)
+            nibName = @"SearchCustomCell";
+        else
+            nibName = @"CustomVideoCell";
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
     
@@ -228,7 +239,8 @@
     cell.likeCount.text = youTubeVideo.likesCount;
     cell.dislikeCount.text = youTubeVideo.dislikesCount;
     //cell.likeCount.text = [NSString stringWithFormat:@"Просмотров: %@", youTubeVideo.viewsCount];
-    cell.chanelTitle.text = [NSString stringWithFormat:@"%@  -  Просмотров: %@", youTubeVideo.channelTitle, youTubeVideo.viewsCount];
+    cell.chanelTitle.text = youTubeVideo.channelTitle;
+    cell.viewCount.text = [NSString stringWithFormat:@"Просмотров: %@", youTubeVideo.viewsCount];
     
     cell.time.text = youTubeVideo.duration;
     
@@ -239,16 +251,7 @@
 // Action performed after tapping on the cell
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"\nCLICK ON TABLE VIEW CELL");
-    NSLog(@"\nPlayer possition: x:%f y:%f\nw:%f h:%f", self.playerView.frame.origin.x,
-          self.playerView.frame.origin.y,
-          self.playerView.frame.size.width,
-          self.playerView.frame.size.height);
-    NSLog(@"\nWebView possition: x:%f y:%f\nw:%f h:%f", self.playerView.webView.frame.origin.x,
-          self.playerView.webView.frame.origin.y,
-          self.playerView.webView.frame.size.width,
-          self.playerView.webView.frame.size.height);
-    
+   
     YouTubeVideo *youTubeVideo;
     if (self.isSearch)
         youTubeVideo = self.videoList[indexPath.row];
@@ -416,7 +419,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 320;
+    if (self.isSearch)
+        return 88;
+    else
+        return 320;
 }
 
 - (IBAction)searchIconButtonClicked {
