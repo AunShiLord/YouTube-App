@@ -444,6 +444,7 @@
         //[self.tableView scrollRectToVisible:searchBarFrame animated:NO];
     }
      */
+    
     if (self.searchController.isActive)
         self.searchController.active = NO;
     else
