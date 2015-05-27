@@ -244,6 +244,8 @@
     
     cell.time.text = youTubeVideo.duration;
     
+    //cell.frame = CGRectMake(0, 0, 500, cell.frame.size.height);
+    
     return cell;
 
 }
