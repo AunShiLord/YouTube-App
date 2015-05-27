@@ -40,6 +40,7 @@
 @property (strong, nonatomic) IBOutlet UITextView *videoDescription;
 
 @property BOOL                                      statusBarNeeded;
+@property BOOL                                      mpRemoved;
 
 @end
 
@@ -128,13 +129,18 @@
     // layouting views
     
     self.view.frame = [[UIScreen mainScreen] bounds];
-    
+    /*
     CGRect playerViewRect = CGRectMake(self.view.frame.size.width+10,
                                        0,
                                        self.view.frame.size.width,
                                        self.view.frame.size.width / 16 * 9 + 20);
-    CGRect detailsViewRect = CGRectMake(playerViewRect.origin.x,
-                                        playerViewRect.size.height,
+     */
+    CGRect playerViewRect = CGRectMake(self.view.frame.size.width+10,
+                                       self.view.frame.size.height,
+                                       self.view.frame.size.width,
+                                       self.view.frame.size.width / 16 * 9 + 20);
+    CGRect detailsViewRect = CGRectMake(0,
+                                        self.view.frame.size.height,
                                         playerViewRect.size.width,
                                         self.view.frame.size.height - playerViewRect.size.height);
     
@@ -143,15 +149,103 @@
     self.detailsView.frame = detailsViewRect;
     
     self.videoTableView.frame = self.view.bounds;
-    self.playerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    /*
-    self.playerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin |
-    UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin |
-    UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-     */
+    self.mpRemoved = YES;
 
     }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    [self adjustViewsForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+}
+
+- (void) adjustViewsForOrientation:(UIInterfaceOrientation) orientation
+{
+    
+    CGFloat orientationMiltiplier = [self orientationMultiplier];
+    
+    CGFloat mpWidth = self.view.frame.size.width / orientationMiltiplier;
+    CGFloat mpHeight = self.view.frame.size.width / 16 * 9 / orientationMiltiplier;
+    
+    CGFloat x = self.view.bounds.size.width-mpWidth - 20;
+    CGFloat y = self.view.bounds.size.height-mpHeight - 20;
+    
+    switch (orientation)
+    {
+        case UIInterfaceOrientationPortrait:
+        case UIInterfaceOrientationPortraitUpsideDown:
+        {
+            if (self.playerView.frame.origin.x == 0)
+            {
+                NSLog(@"Portrait Orientation");
+                CGRect playerViewRect = CGRectMake(0,
+                                                   0,
+                                                   self.view.frame.size.width,
+                                                   self.view.frame.size.width / 16 * 9 + 20 );
+                self.playerView.frame = playerViewRect;
+                CGRect detailsViewRect = CGRectMake(playerViewRect.origin.x,
+                                                    playerViewRect.size.height-1,
+                                                    playerViewRect.size.width,
+                                                    self.view.frame.size.height - playerViewRect.size.height);
+                self.detailsView.frame = detailsViewRect;
+            }
+            else if (!self.mpRemoved)
+            {
+
+                CGRect containerFrame = CGRectMake(x, y, mpWidth, mpHeight);
+                [UIView animateWithDuration:0.5 animations:^{
+                    self.playerView.frame = containerFrame;
+                }];
+
+            }
+            self.videoTableView.frame = self.view.frame;
+            
+        }
+            
+            break;
+        case UIInterfaceOrientationLandscapeLeft:
+        case UIInterfaceOrientationLandscapeRight:
+        {
+            if (self.playerView.frame.origin.x == 0)
+            {
+                CGRect playerViewRect = CGRectMake(0,
+                                                   0,
+                                                   self.view.frame.size.width,
+                                                   self.view.frame.size.height);
+                self.playerView.frame = playerViewRect;
+                NSLog(@"%@",NSStringFromCGRect(self.playerView.frame));
+            }
+            else if (!self.mpRemoved)
+            {
+                
+                CGRect containerFrame = CGRectMake(x, y, mpWidth, mpHeight);
+                [UIView animateWithDuration:0.5 animations:^{
+                    self.playerView.frame = containerFrame;
+                }];
+            }
+
+ 
+            self.videoTableView.frame = self.view.frame;
+    
+            
+            
+        }
+            break;
+        case UIInterfaceOrientationUnknown:break;
+    }
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+}
 
 - (void)getPopularVideoList
 {
@@ -260,6 +354,8 @@
     else
         youTubeVideo = self.popularVideoList[indexPath.row];
     
+    self.mpRemoved = NO;
+    
     NSDictionary *playerVars = @{
                                  @"playsinline" : @"1",
                                  @"autoplay" :@1,
@@ -327,11 +423,17 @@
     CGRect playerFrame = self.playerView.frame;
     playerFrame.origin.x = -self.playerView.frame.size.width;
     
-    [UIView animateWithDuration:0.3 animations:^{
-        
-        self.playerView.frame = playerFrame;
-        
-    }];
+    [UIView animateWithDuration:0.3 animations:^
+     {
+         self.playerView.frame = playerFrame;
+     }
+     completion:^(BOOL finished)
+     {
+         self.playerView.frame = CGRectMake(self.view.frame.size.width, 0, 0, 0);
+     }];
+    
+    self.mpRemoved = YES;
+    
 }
 
 - (void)swipeDown:(UIGestureRecognizer *)gr
@@ -344,9 +446,16 @@
     [self minimizeMp:NO animated:YES];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+- (CGFloat) orientationMultiplier
+{
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    if (UIInterfaceOrientationIsPortrait(orientation))
+    {
+        return 2;
+    }
+    else
+        return 4;
 }
 
 - (BOOL)mpIsMinimized {
@@ -362,16 +471,14 @@
     CGRect tallContainerFrame, containerFrame;
     CGFloat tallContainerAlpha;
     
+    CGFloat orientationMultiplier = [self orientationMultiplier];
     if (minimized)
     {
-        CGFloat mpWidth = self.playerView.frame.size.width / 2;
-        CGFloat mpHeight = self.playerView.frame.size.height / 2;
+        CGFloat mpWidth = self.playerView.frame.size.width / orientationMultiplier;
+        CGFloat mpHeight = self.playerView.frame.size.height / orientationMultiplier;
         
         CGFloat x = self.view.bounds.size.width-mpWidth - 20;
         CGFloat y = self.view.bounds.size.height-mpHeight - 20;
-        
-        NSLog(@"X: Bound:%f, Frame: %f, Position: %f", self.view.bounds.size.width, self.view.frame.size.width, x);
-        NSLog(@"Y: Bound:%f, Frame: %f, Position: %f", self.view.bounds.size.height, self.view.frame.size.height, y);
         
         tallContainerFrame = CGRectMake(0, self.view.frame.size.height,
                                         self.detailsView.frame.size.width, self.detailsView.frame.size.height);
