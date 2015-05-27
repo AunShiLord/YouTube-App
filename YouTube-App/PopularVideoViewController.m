@@ -46,6 +46,9 @@
 
 @implementation PopularVideoViewController
 
+
+#pragma mark System methods
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -161,6 +164,24 @@
                                                object:nil];
 }
 
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+}
+
+#pragma mark Orientation methods
+
+- (CGFloat) orientationMultiplier
+{
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    if (UIInterfaceOrientationIsPortrait(orientation))
+    {
+        return 2;
+    }
+    else
+        return 4;
+}
+
 - (void)orientationChanged:(NSNotification *)notification
 {
     [self adjustViewsForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
@@ -242,10 +263,7 @@
     }
 }
 
--(void)viewDidDisappear:(BOOL)animated
-{
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
-}
+#pragma mark Network methods
 
 - (void)getPopularVideoList
 {
@@ -282,11 +300,7 @@
     [self.view endEditing:YES];
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
-{
-    [self.view endEditing:YES];
-    //self.searchController.active = NO;
-}
+#pragma mark UITableView methods
 
 // Number of sections in tableview
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -412,6 +426,14 @@
     
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.isSearch)
+        return 88;
+    else
+        return 320;
+}
+
 #pragma mark Gesture Recognizers
 
 -(void)swipeLeft:(UIGestureRecognizer *)gr
@@ -447,18 +469,9 @@
 }
 
 
-- (CGFloat) orientationMultiplier
-{
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    if (UIInterfaceOrientationIsPortrait(orientation))
-    {
-        return 2;
-    }
-    else
-        return 4;
-}
+#pragma mark Minimization methods
 
-- (BOOL)mpIsMinimized {
+-(BOOL)mpIsMinimized {
     return self.playerView.frame.origin.y > 50;
 }
 
@@ -525,14 +538,7 @@
     }];
 }
 
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (self.isSearch)
-        return 88;
-    else
-        return 320;
-}
+#pragma mark SearchBar methods
 
 - (IBAction)searchIconButtonClicked {
     /*
@@ -565,6 +571,14 @@
     
     
 }
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [self.view endEditing:YES];
+    //self.searchController.active = NO;
+}
+
+#pragma mark Other methods
 
 - (BOOL)prefersStatusBarHidden
 {
